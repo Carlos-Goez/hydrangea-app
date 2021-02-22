@@ -1,0 +1,137 @@
+#: include home.kv
+#: include order.kv
+#: include stats.kv
+#: include setting.kv
+#: include history.kv
+
+<ContentNavigationDrawer>:
+    orientation: "vertical"
+    padding: "8dp"
+    spacing: "8dp"
+    MDIconButton:
+        icon: 'account'
+        user_font_size: '100sp'
+        text: 'Carlos Goez'
+        size_hint: 1,1
+    MDLabel:
+        id: name_account
+        text: "Carlos Goez"
+        font_style: 'Subtitle1'
+        size_hint_y: None
+        height: self.texture_size[1]
+    MDLabel:
+        id: role_account
+        text: "Admin"
+        font_style: 'Caption'
+        size_hint_y: None
+        height: self.texture_size[1]
+
+    ScrollView:
+        MDList:
+            OneLineIconListItem:
+                text: "Principal"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "Screen Home"
+                IconLeftWidget:
+                    icon: 'home'
+
+            OneLineIconListItem:
+                text: "Ingresar"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "Screen Login"
+                IconLeftWidget:
+                    icon: 'login'
+
+            OneLineIconListItem:
+                text: "Registrar"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "Screen Login"
+                IconLeftWidget:
+                    icon: 'clipboard-account'
+
+            OneLineIconListItem:
+                text: "Salir"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    root.screen_manager.current = "Screen Login"
+                IconLeftWidget:
+                    icon: 'logout'
+
+<Toolbar>:
+    pos_hint: {"top": 1}
+    elevation: 10
+    title: "MDNavigationDrawer"
+    left_action_items: [["account", lambda x: root.nav_drawer.set_state("open")]]
+
+
+Screen:
+    Toolbar:
+        id:toolbar
+        nav_drawer: nav_drawer
+
+    NavigationLayout:
+        x: toolbar.height
+        ScreenManager:
+            id: screen_manager
+            Screen:
+                name: "Screen Home"
+                BoxLayout:
+                    orientation: 'vertical'
+                    Toolbar:
+                        id:toolbar
+                        nav_drawer: nav_drawer
+                    MDBottomNavigation:
+                        panel_color: 0.7,0.7,0.7,1
+                        MDBottomNavigationItem:
+                            name: 'home'
+                            text: 'Inicio'
+                            icon: 'home'
+                            Home:
+
+                        MDBottomNavigationItem:
+                            name: 'order'
+                            text: 'Pedidos'
+                            icon: 'clipboard-list'
+                            Order:
+
+                        MDBottomNavigationItem:
+                            name: 'stats'
+                            text: 'Estadisticas'
+                            icon: 'trending-up'
+                            Stats:
+
+
+                        MDBottomNavigationItem:
+                            name: 'history'
+                            text: 'Historial'
+                            icon: 'history'
+                            History:
+
+                        MDBottomNavigationItem:
+                            name: 'setting'
+                            text: 'Configuraciones'
+                            icon: 'cogs'
+                            Setting:
+
+            Screen:
+                name: "Screen Login"
+
+                MDLabel:
+                    text: "Login"
+                    haling: "center"
+            Screen:
+                name: "Screen Logup"
+
+                MDLabel:
+                    text: "Logup"
+                    haling: "center"
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                screen_manager: screen_manager
+                nav_drawer: nav_drawer
