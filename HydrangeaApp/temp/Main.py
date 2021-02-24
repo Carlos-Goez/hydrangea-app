@@ -1,103 +1,22 @@
-# -*-coding utf-8-*-
-
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
-from kivymd.app import MDApp
-from kivymd.uix.toolbar import MDToolbar
-from kivy.metrics import dp
-from kivy.uix.anchorlayout import AnchorLayout
-from kivymd.uix.datatables import MDDataTable
-from kivymd.uix.label import MDLabel
+from kivy.config import Config
+from kivy.app import App
+from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 
-# import _thread
-# import Ejes
-# traslX = Ejes.Traslacional(4,10,16)
-# traslY = Ejes.Traslacional(5,11,17)
-# traslZ = Ejes.Elevador(6,12,18)
-# rotY = Ejes.Rotacional(8,13)
-# rotX = Ejes.Rotacional(13,14)
-# #rotX = Ejes.Rotacional(11,15)
-# pinzas = Ejes.Pinzas(11,15,19)
+import _thread
+import Ejes
 
-
-class Home(BoxLayout):
-    pass
-
-
-class Order(BoxLayout):
-    pass
-
-
-class Stats(BoxLayout):
-    pass
-
-
-class History(BoxLayout):
-    pass
-
-
-class Setting(BoxLayout):
-    pass
-
-
-class Toolbar(MDToolbar):
-    pass
-
-
-class Login(BoxLayout):
-    pass
-
-
-class SignUp(BoxLayout):
-    pass
-
-
-class ContentNavigationDrawer(BoxLayout):
-    screen_manager = ObjectProperty()
-    nav_drawer = ObjectProperty()
-
-
-class DataTable(AnchorLayout):
-    def __init__(self, **kwargs):
-        super().__init__()
-        data_tables = MDDataTable(
-            size_hint=(0.9, .9),
-            # name column, width column
-            column_data=[
-                ("#", dp(8)),
-                ("Pedido", dp(30)),
-                ("T.Caja", dp(20)),
-                ("Mini", dp(20)),
-                ("Selecta", dp(20)),
-                ("Azul", dp(20)),
-                ("Estado", dp(20)),
-                ("%Completado", dp(25)),
-            ],
-        )
-        self.add_widget(data_tables)
-
-
-class DataTableOrderActive(AnchorLayout):
-    def __init__(self, **kwargs):
-        super().__init__()
-        data_tables = MDDataTable(
-            size_hint=(0.9, .9),
-            # name column, width column
-            column_data=[
-                ("#", dp(8)),
-                ("Pedido", dp(30)),
-                ("T.Caja", dp(20)),
-                ("Mini", dp(20)),
-                ("Selecta", dp(20)),
-                ("Azul", dp(20)),
-                ("Estado", dp(20)),
-                ("%Completado", dp(25)),
-            ],
-        )
-        self.add_widget(data_tables)
+Config.set('graphics', 'width', '600')
+Config.set('graphics', 'height', '400')
+traslX = Ejes.Traslacional(4,10,16)
+traslY = Ejes.Traslacional(5,11,17)
+traslZ = Ejes.Elevador(6,12,18)
+rotY = Ejes.Rotacional(8,13)
+rotX = Ejes.Rotacional(13,14)
+# rotX = Ejes.Rotacional(11,15)
+pinzas = Ejes.Pinzas(11,15,19)
 
 
 class MyGrid(GridLayout):
@@ -105,99 +24,95 @@ class MyGrid(GridLayout):
         super(MyGrid, self).__init__(**kwargs)
         self.home = 0
         self.cols = 6
-        self.padding = [dp(15), dp(15)]
-        self.spacing = [dp(10), dp(10)]
 
-        self.add_widget(MDLabel(text="X", halign="center", font_style='H5'))
-        self.Xtxt = TextInput(multiline=False, halign="center")
+        self.add_widget(Label(text="X"))
+        self.Xtxt = TextInput(multiline=False)
         self.add_widget(self.Xtxt)
         self.BtnUpX = Button(text="UP")
-        # self.BtnUpX.bind(on_press=self.XBtnUp)
+        self.BtnUpX.bind(on_press=self.XBtnUp)
         self.add_widget(self.BtnUpX)
         self.BtnDownX = Button(text="DOWN")
-        # self.BtnDownX.bind(on_press=self.XBtnDown)
+        self.BtnDownX.bind(on_press=self.XBtnDown)
         self.add_widget(self.BtnDownX)
         self.BtnResetX = Button(text="Reset")
-        # self.BtnResetX.bind(on_press=self.XBtnReset)
+        self.BtnResetX.bind(on_press=self.XBtnReset)
         self.add_widget(self.BtnResetX)
         self.BtnGotoX = Button(text="Go to")
-        # self.BtnGotoX.bind(on_press=self.XBtnGoto)
+        self.BtnGotoX.bind(on_press=self.XBtnGoto)
         self.add_widget(self.BtnGotoX)
 
-        self.add_widget(MDLabel(text="Y", halign="center", font_style='H5'))
-        self.Ytxt = TextInput(multiline=False, halign="center")
+        self.add_widget(Label(text="Y"))
+        self.Ytxt = TextInput(multiline=False)
         self.add_widget(self.Ytxt)
         self.BtnUpY = Button(text="UP")
-        # self.BtnUpY.bind(on_press=self.YBtnUp)
+        self.BtnUpY.bind(on_press=self.YBtnUp)
         self.add_widget(self.BtnUpY)
         self.BtnDownY = Button(text="DOWN")
-        # self.BtnDownY.bind(on_press=self.YBtnDown)
+        self.BtnDownY.bind(on_press=self.YBtnDown)
         self.add_widget(self.BtnDownY)
         self.BtnResetY = Button(text="Reset")
-        # self.BtnResetY.bind(on_press=self.YBtnReset)
+        self.BtnResetY.bind(on_press=self.YBtnReset)
         self.add_widget(self.BtnResetY)
         self.BtnGotoY = Button(text="Go to")
-        # self.BtnGotoY.bind(on_press=self.YBtnGoto)
+        self.BtnGotoY.bind(on_press=self.YBtnGoto)
         self.add_widget(self.BtnGotoY)
 
-        self.add_widget(MDLabel(text="Z", halign="center", font_style='H5'))
-        self.Ztxt = TextInput(multiline=False, halign="center")
+        self.add_widget(Label(text="Z"))
+        self.Ztxt = TextInput(multiline=False)
         self.add_widget(self.Ztxt)
         self.BtnUpZ = Button(text="UP")
-        # self.BtnUpZ.bind(on_press=self.ZBtnUp)
+        self.BtnUpZ.bind(on_press=self.ZBtnUp)
         self.add_widget(self.BtnUpZ)
         self.BtnDownZ = Button(text="DOWN")
-        # self.BtnDownZ.bind(on_press=self.ZBtnDown)
+        self.BtnDownZ.bind(on_press=self.ZBtnDown)
         self.add_widget(self.BtnDownZ)
         self.BtnResetZ = Button(text="Reset")
-        # self.BtnResetZ.bind(on_press=self.ZBtnReset)
+        self.BtnResetZ.bind(on_press=self.ZBtnReset)
         self.add_widget(self.BtnResetZ)
         self.BtnGotoZ = Button(text="Go to")
-        # self.BtnGotoZ.bind(on_press=self.ZBtnGoto)
+        self.BtnGotoZ.bind(on_press=self.ZBtnGoto)
         self.add_widget(self.BtnGotoZ)
 
-        self.add_widget(MDLabel(text="RotY", halign="center", font_style='H5'))
-        self.RotYtxt = TextInput(multiline=False, halign="center")
+        self.add_widget(Label(text="RotY"))
+        self.RotYtxt = TextInput(multiline=False)
         self.add_widget(self.RotYtxt)
         self.BtnUpRotY = Button(text="UP")
-        # self.BtnUpRotY.bind(on_press=self.RotYBtnUp)
+        self.BtnUpRotY.bind(on_press=self.RotYBtnUp)
         self.add_widget(self.BtnUpRotY)
         self.BtnDownRotY = Button(text="DOWN")
-        # self.BtnDownRotY.bind(on_press=self.RotYBtnDown)
+        self.BtnDownRotY.bind(on_press=self.RotYBtnDown)
         self.add_widget(self.BtnDownRotY)
         self.BtnResetRotY = Button(text="Reset")
-        # self.BtnResetRotY.bind(on_press=self.RotYBtnReset)
+        self.BtnResetRotY.bind(on_press=self.RotYBtnReset)
         self.add_widget(self.BtnResetRotY)
         self.BtnGotoRotY = Button(text="Go to")
-        # self.BtnGotoRotY.bind(on_press=self.RotYBtnGoto)
+        self.BtnGotoRotY.bind(on_press=self.RotYBtnGoto)
         self.add_widget(self.BtnGotoRotY)
 
-        self.add_widget(MDLabel(text="RotX", halign="center", font_style='H5'))
-        self.RotXtxt = TextInput(multiline=False, halign="center")
+        self.add_widget(Label(text="RotX"))
+        self.RotXtxt = TextInput(multiline=False)
         self.add_widget(self.RotXtxt)
         self.BtnUpRotX = Button(text="UP")
-        # self.BtnUpRotX.bind(on_press=self.RotXBtnUp)
+        self.BtnUpRotX.bind(on_press=self.RotXBtnUp)
         self.add_widget(self.BtnUpRotX)
         self.BtnDownRotX = Button(text="DOWN")
-        # self.BtnDownRotX.bind(on_press=self.RotXBtnDown)
+        self.BtnDownRotX.bind(on_press=self.RotXBtnDown)
         self.add_widget(self.BtnDownRotX)
         self.BtnResetRotX = Button(text="Reset")
-        # self.BtnResetRotX.bind(on_press=self.RotXBtnReset)
+        self.BtnResetRotX.bind(on_press=self.RotXBtnReset)
         self.add_widget(self.BtnResetRotX)
         self.BtnGotoRotX = Button(text="Go to")
-        # self.BtnGotoRotX.bind(on_press=self.RotXBtnGoto)
+        self.BtnGotoRotX.bind(on_press=self.RotXBtnGoto)
         self.add_widget(self.BtnGotoRotX)
 
-        self.add_widget(MDLabel(text="Pinzas", halign="center", font_style='H5'))
+        self.add_widget(Label(text="Pinzas"))
         self.Gripper = Button(text="ON")
-        # self.Gripper.bind(on_press=self.GripperPressed)
+        self.Gripper.bind(on_press=self.GripperPressed)
         self.add_widget(self.Gripper)
         self.GripperHome = Button(text="Home")
-        # self.GripperHome.bind(on_press=self.GripperPressedHome)
+        self.GripperHome.bind(on_press=self.GripperPressedHome)
         self.add_widget(self.GripperHome)
 
-
-"""
     def GripperPressed(self, instance):
         if self.home == 1:
             if self.Gripper.text == "ON":
@@ -282,18 +197,13 @@ class MyGrid(GridLayout):
     def ZBtnReset(self, instance):
         traslZ.ResetHome()
         self.Ztxt.text = str(traslZ.distancia)
-"""
 
 
-class MainApp(MDApp):
+class MyApp(App):
     def build(self):
-        self.title = "HydrangeaApp"
-        self.theme_cls.primary_palette = "Indigo"
-
-    def on_start(self):
-        self.root.ids.screen_manager.current = 'Screen Login'
+        return MyGrid()
 
 
-if __name__ == "__main__":
-    # Ejes.initConfig()
-    MainApp().run()
+if __name__=="__main__":
+    Ejes.initConfig()
+    MyApp().run()
