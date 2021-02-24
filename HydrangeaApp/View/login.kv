@@ -1,0 +1,33 @@
+<Login>:
+    MDFloatLayout:
+        MDLabel:
+            text: "Ingresar"
+            pos_hint:{"center_y":.80}
+            halign:"center"
+            text_color:0, 0, 0, 1
+            font_style: "H3"
+        MDLabel:
+            text: "Bienvenido"
+            pos_hint:{"center_y":.70}
+            halign:"center"
+            text_color:0, 0, 0, 1
+            font_style: "H5"
+        MDTextField:
+            hint_text: "Usuario"
+            mode:"rectangle"
+            pos_hint: {"center_x": .5 , "center_y":.5}
+            current_hint_text_color:0, 0, 0, 1
+            size_hint_x: 0.5
+        MDTextField:
+            hint_text: "Clave"
+            icon_right: 'eye-off'
+            mode:"rectangle"
+            pos_hint: {"center_x": .5 , "center_y":.4}
+            current_hint_text_color:0, 0, 0, 1
+            size_hint_x: 0.5
+            mode:"rectangle"
+            password: True
+        MDRaisedButton:
+            text: "Ingresar"
+            pos_hint: {"center_x": .5 , "center_y":.25}
+            size_hint_x: .3
