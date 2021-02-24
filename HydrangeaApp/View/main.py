@@ -52,15 +52,37 @@ class DataTable(AnchorLayout):
     def __init__(self, **kwargs):
         super().__init__()
         data_tables = MDDataTable(
-            size_hint=(0.9, 0.6),
+            size_hint=(0.9, .9),
             # name column, width column
             column_data=[
-                ("Column 1", dp(30)),
-                ("Column 2", dp(30)),
-                ("Column 3", dp(30)),
-                ("Column 4", dp(30)),
-                ("Column 5", dp(30)),
-                ("Column 6", dp(30)),
+                ("#", dp(8)),
+                ("Pedido", dp(30)),
+                ("T.Caja", dp(20)),
+                ("Mini", dp(20)),
+                ("Selecta", dp(20)),
+                ("Azul", dp(20)),
+                ("Estado", dp(20)),
+                ("%Completado", dp(25)),
+            ],
+        )
+        self.add_widget(data_tables)
+
+
+class DataTableOrderActive(AnchorLayout):
+    def __init__(self, **kwargs):
+        super().__init__()
+        data_tables = MDDataTable(
+            size_hint=(0.9, .9),
+            # name column, width column
+            column_data=[
+                ("#", dp(8)),
+                ("Pedido", dp(30)),
+                ("T.Caja", dp(20)),
+                ("Mini", dp(20)),
+                ("Selecta", dp(20)),
+                ("Azul", dp(20)),
+                ("Estado", dp(20)),
+                ("%Completado", dp(25)),
             ],
         )
         self.add_widget(data_tables)

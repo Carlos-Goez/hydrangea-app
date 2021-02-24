@@ -1,4 +1,70 @@
 <Order>:
-    FloatLayout:
-        MDLabel:
-            text: "Order"
+    BoxLayout:
+        orientation:'vertical'
+        spacing: "5dp"
+        padding: '5dp'
+        MDCard:
+            orientation: "vertical"
+            size_hint_y: .05
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 20
+            radius: [5]
+            MDLabel:
+                text: "TABLA DE PEDIDOS"
+                font_style:'H6'
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+        DataTable:
+            size_hint_y: .5
+        MDCard:
+            orientation: "vertical"
+            size_hint_y: .05
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 20
+            radius: [5]
+            MDLabel:
+                text: "AGREGAR PEDIDO"
+                font_style:'H6'
+                theme_text_color: "Secondary"
+                height: self.texture_size[1]
+                halign: "center"
+        BoxLayout:
+            size_hint_y: .4
+            orientation: "vertical"
+            spacing: "5dp"
+            padding: '5dp'
+            BoxLayout
+                spacing: "60dp"
+                padding: '10dp'
+                MDTextField:
+                    hint_text: "Catidad Mini"
+                    mode: "rectangle"
+                    current_hint_text_color:0, 0, 0, 1
+                MDTextField:
+                    hint_text: "ID Pedido"
+                    mode: "rectangle"
+                    current_hint_text_color:0, 0, 0, 1
+            BoxLayout
+                spacing: "60dp"
+                padding: '10dp'
+                MDTextField:
+                    hint_text: "Cantidad Selecta"
+                    mode: "rectangle"
+                    current_hint_text_color:0, 0, 0, 1
+                MDTextField:
+                    hint_text: "Tamaño Caja"
+                    mode: "rectangle"
+                    current_hint_text_color:0, 0, 0, 1
+            BoxLayout
+                spacing: "60dp"
+                padding: '10dp'
+                MDTextField:
+                    hint_text: "Cantidad Blue"
+                    mode: "rectangle"
+                    current_hint_text_color:0, 0, 0, 1
+                MDRaisedButton:
+                    text: "Agregar"
+                    pos_hint: {"center_x": .5 , "center_y":.5}
+                    size_hint_x: 1

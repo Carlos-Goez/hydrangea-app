@@ -1,6 +1,121 @@
 <Home>:
     BoxLayout:
         orientation: "vertical"
-        DataTable:
 
+        BoxLayout:
+            size_hint_y: 0.4
+            DataTableOrderActive:
+        BoxLayout:
+            size_hint_y: 0.6
+            spacing: "10dp"
+            padding: '8dp'
+            MDCard:
+                border_radius: 20
+                radius: [15]
+                padding: "8dp"
+                orientation: "vertical"
+                size_hint_x: 0.6
+                size_hint_y: 1
+                elevation:10
+                pos_hint: {"center_x": .5, "center_y": .5}
 
+                Image:
+                    size: self.texture_size
+                    size_hint_y: 0.9
+                    source: '/home/agoez/Downloads/OneDrive-2021-02-02/5.jpg'
+
+                MDSeparator:
+                    height: "1dp"
+
+                MDLabel:
+                    size_hint_y: 0.1
+                    text: "Body"
+                    halign: "center"
+                    font_style: 'H6'
+            MDBoxLayout:
+                orientation: "vertical"
+                size_hint_x: 0.4
+                spacing: "10dp"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .19
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "FLORES POR PROCESAR"
+                        font_style:'H6'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .27
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "SELECTA"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .27
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "MINI"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .27
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "BLUE"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
