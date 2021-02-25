@@ -31,6 +31,7 @@
                 pos_hint: {"center_x": .5, "center_y": .5}
 
                 Image:
+                    id: history _graph_image
                     size: self.texture_size
                     size_hint_y: 0.9
                     source: '/home/agoez/Downloads/OneDrive-2021-02-02/5.jpg'
@@ -64,6 +65,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_performance
                         text: "5 flores/min"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -87,6 +89,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_global_flower_quantity
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -110,6 +113,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_stats_quantity_select
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -133,6 +137,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_stats_quantity_mini
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -156,6 +161,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_stats_quantity_blue
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -170,10 +176,12 @@
             spacing: "60dp"
             padding: 25, 10
             MDTextField:
+                id: field_stats_date_start
                 hint_text: "Fecha Inicio"
                 mode: "rectangle"
                 current_hint_text_color:0, 0, 0, 1
             MDTextField:
+                id: field_stats_date_end
                 hint_text: "Fecha Final"
                 mode: "rectangle"
                 current_hint_text_color:0, 0, 0, 1

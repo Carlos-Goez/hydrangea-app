@@ -20,6 +20,7 @@
                 pos_hint: {"center_x": .5, "center_y": .5}
 
                 Image:
+                    id: flower_image
                     size: self.texture_size
                     size_hint_y: 0.9
                     source: '/home/agoez/Downloads/OneDrive-2021-02-02/5.jpg'
@@ -28,8 +29,9 @@
                     height: "1dp"
 
                 MDLabel:
+                    id: label_flower_type
                     size_hint_y: 0.1
-                    text: "Body"
+                    text: "Mini"
                     halign: "center"
                     font_style: 'H6'
             MDBoxLayout:
@@ -67,6 +69,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_quantity_select
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -90,6 +93,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_quantity_mini
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -113,6 +117,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
+                        id: label_quantity_blue
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"

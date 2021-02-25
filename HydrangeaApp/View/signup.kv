@@ -7,12 +7,14 @@
             text_color:0, 0, 0, 1
             font_style: "H3"
         MDTextField:
+            id: field_register_user
             hint_text: "Usuario"
             mode:"rectangle"
             pos_hint: {"center_x": .5 , "center_y":.6}
             current_hint_text_color:0, 0, 0, 1
             size_hint_x: 0.5
         MDTextField:
+            id: field_register_password
             hint_text: "Clave"
             icon_right: 'eye-off'
             mode:"rectangle"
@@ -21,16 +23,18 @@
             size_hint_x: 0.5
             password: True
         MDChip:
+            id: check_register_role
             pos_hint: {"center_x": .5 , "center_y":.4}
             size_hint_x: 0.35
             text_color:0, 0, 0, 1
             label:"  Hacer Administrador"
             icon: 'account'
-            check:True
+            check: True
             color: 0.5, 0.5, 0.5, 1
 
 
         MDRaisedButton:
+            id: button_signup
             text: "Registrar"
             pos_hint: {"center_x": .5 , "center_y":.2}
             size_hint_x: .3
