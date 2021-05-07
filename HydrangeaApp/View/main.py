@@ -11,6 +11,11 @@ from kivymd.uix.label import MDLabel
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
+from kivy.properties import StringProperty
+from kivy.uix.relativelayout import RelativeLayout
+import re
 
 # import _thread
 # import Ejes
@@ -48,11 +53,44 @@ class Toolbar(MDToolbar):
 
 
 class Login(BoxLayout):
-    pass
+    def create_session(self):
+        user = self.ids['field_user']
+        password = self.ids['password_layout']
 
 
 class SignUp(BoxLayout):
-    pass
+    def create_user(self):
+        user = self.ids['field_register_user'].text
+        password = self.ids.password_layout.ids.field_password.text
+        role = self.ids['check_register_role'].active
+        self.check_username(user, password)
+
+        if user == 'andres' and password == '123' and role:
+            self.parent.parent.current = 'Screen Home'
+            self.ids['field_register_user'].text = ''
+            self.ids.password_layout.ids.field_password.text = ''
+
+    def check_username(self, username, password):
+
+        username_text = username
+        password_text = password
+        username_check_false = False
+
+        if not re.match("^[a-zA-z]", username):
+            username_check_false = True
+        if username_check_false or username_text.split(
+        ) == [] or password_text.split() == []:
+            cancel_btn_username_dialogue = MDFlatButton(
+                text='Retry', on_release=self.close_username_dialogue)
+            self.dialog = MDDialog(
+                title='Dato Invalido',
+                text="Por favor ingrese una clave y usuario validos",
+                size_hint=(0.7, 0.2),
+                buttons=[cancel_btn_username_dialogue])
+            self.dialog.open()
+
+    def close_username_dialogue(self, obj):
+        self.dialog.dismiss()
 
 
 class ContentNavigationDrawer(BoxLayout):
@@ -78,6 +116,31 @@ class DataTable(AnchorLayout):
             ],
         )
         self.add_widget(data_tables)
+
+
+class DataTableHistory(AnchorLayout):
+    def __init__(self, **kwargs):
+        super().__init__()
+        data_tables = MDDataTable(
+            size_hint=(0.9, .9),
+            # name column, width column
+            column_data=[
+                ("#", dp(8)),
+                ("Pedido", dp(30)),
+                ("T.Caja", dp(20)),
+                ("Mini", dp(20)),
+                ("Selecta", dp(20)),
+                ("Azul", dp(20)),
+                ("Estado", dp(20)),
+                ("%Completado", dp(25)),
+            ],
+        )
+        self.add_widget(data_tables)
+
+
+class ClickableTextFieldRound(RelativeLayout):
+    text = StringProperty()
+    hint_text = StringProperty()
 
 
 class DataTableOrderActive(AnchorLayout):
@@ -108,6 +171,7 @@ class MyGrid(GridLayout):
         self.padding = [dp(15), dp(15)]
         self.spacing = [dp(10), dp(10)]
 
+        # Position control axis X
         self.add_widget(MDLabel(text="X", halign="center", font_style='H5'))
         self.Xtxt = TextInput(multiline=False, halign="center")
         self.add_widget(self.Xtxt)
@@ -188,7 +252,8 @@ class MyGrid(GridLayout):
         # self.BtnGotoRotX.bind(on_press=self.RotXBtnGoto)
         self.add_widget(self.BtnGotoRotX)
 
-        self.add_widget(MDLabel(text="Pinzas", halign="center", font_style='H5'))
+        self.add_widget(
+            MDLabel(text="Pinzas", halign="center", font_style='H5'))
         self.Gripper = Button(text="ON")
         # self.Gripper.bind(on_press=self.GripperPressed)
         self.add_widget(self.Gripper)
@@ -197,9 +262,7 @@ class MyGrid(GridLayout):
         self.add_widget(self.GripperHome)
 
 
-"""
-    def GripperPressed(self, instance):
-        if self.home == 1:
+""" def GripperPressed(self, instance): if self.home == 1:
             if self.Gripper.text == "ON":
                 _thread.start_new_thread(pinzas.POpen,())
                 self.Gripper.text = "OFF"
@@ -295,5 +358,5 @@ class MainApp(MDApp):
 
 
 if __name__ == "__main__":
-    # Ejes.initConfig()
     MainApp().run()
+    # Ejes.initConfig()

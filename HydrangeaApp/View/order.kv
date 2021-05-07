@@ -40,12 +40,14 @@
                 padding: 25, 10
                 MDTextField:
                     id: field_order_quantity_mini
-                    hint_text: "Catidad Mini"
+                    hint_text: "Cantidad Mini"
+                    hint_text: "Cantidad Mini"
+                    hint_text: "Cantidad Mini"
                     mode: "rectangle"
                     current_hint_text_color:0, 0, 0, 1
                 MDTextField:
-                    id: field_order_id
-                    hint_text: "ID Pedido"
+                    id: field_order_quantity_blue
+                    hint_text: "Cantidad Blue"
                     mode: "rectangle"
                     current_hint_text_color:0, 0, 0, 1
             BoxLayout
@@ -65,12 +67,15 @@
                 spacing: "60dp"
                 padding: 25, 10
                 MDTextField:
-                    id: field_order_quantity_blue
-                    hint_text: "Cantidad Blue"
+                    id: field_order_id
+                    hint_text: "ID Pedido"
                     mode: "rectangle"
                     current_hint_text_color:0, 0, 0, 1
                 MDRaisedButton:
                     id: button_add_order
                     text: "Agregar"
-                    pos_hint: {"center_x": .5 , "center_y":.5}
-                    size_hint_x: 1
+                    pos_hint: {"center_x": .5 , "center_y": .5}
+                MDRaisedButton:
+                    id: button_delete_order
+                    text: "Borrar"
+                    pos_hint: {"center_x": .5, "center_y": .5}

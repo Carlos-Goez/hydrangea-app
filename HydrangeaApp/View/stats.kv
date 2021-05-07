@@ -10,7 +10,7 @@
             border_radius: 20
             radius: [5]
             MDLabel:
-                text: "ESTADISTICAS"
+                text: "ESTADÍSTICAS"
                 font_style:'H6'
                 theme_text_color: "Secondary"
                 size_hint_y: None
@@ -20,34 +20,135 @@
             size_hint_y: .8
             spacing: "10dp"
             padding: 25, 10
-            MDCard:
-                border_radius: 20
-                radius: [15]
-                padding: "8dp"
-                orientation: "vertical"
-                size_hint_x: 0.6
-                size_hint_y: 1
-                elevation:10
-                pos_hint: {"center_x": .5, "center_y": .5}
-
-                Image:
-                    id: history _graph_image
-                    size: self.texture_size
-                    size_hint_y: 0.9
-                    source: '/home/agoez/Downloads/OneDrive-2021-02-02/5.jpg'
-
-                MDSeparator:
-                    height: "1dp"
-
-                MDLabel:
-                    size_hint_y: 0.1
-                    text: "Body"
-                    halign: "center"
-                    font_style: 'H6'
             MDBoxLayout:
                 orientation: "vertical"
-                size_hint_x: 0.4
+                size_hint_x: .5
                 spacing: "10dp"
+
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .2
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "Total Flores Procesadas"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        id: label_global_flower_quantity
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .2
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "Selecta"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        id: label_stats_quantity_select
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .2
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "Mini"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        id: label_stats_quantity_mini
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .2
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "Blue"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        id: label_stats_quantity_blue
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+            MDBoxLayout:
+                spacing: "10dp"
+                orientation: "vertical"
+                size_hint_x: 0.5
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .2
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 20
+                    radius: [15]
+                    MDLabel:
+                        text: "Total Pedidos Procesados"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                    MDSeparator:
+                        height: "1dp"
+                    MDLabel:
+                        id: label_global_flower_quantity
+                        text: "0"
+                        font_style:'Subtitle1'
+                        theme_text_color: "Secondary"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
                 MDCard:
                     orientation: "vertical"
                     padding: "8dp"
@@ -72,6 +173,7 @@
                         size_hint_y: None
                         height: self.texture_size[1]
                         halign: "center"
+
                 MDCard:
                     orientation: "vertical"
                     padding: "8dp"
@@ -80,31 +182,7 @@
                     border_radius: 20
                     radius: [15]
                     MDLabel:
-                        text: "TOTAL"
-                        font_style:'Subtitle1'
-                        theme_text_color: "Secondary"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        halign: "center"
-                    MDSeparator:
-                        height: "1dp"
-                    MDLabel:
-                        id: label_global_flower_quantity
-                        text: "0"
-                        font_style:'Subtitle1'
-                        theme_text_color: "Secondary"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        halign: "center"
-                MDCard:
-                    orientation: "vertical"
-                    padding: "8dp"
-                    size_hint_y: .2
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
-                    MDLabel:
-                        text: "SELECTA"
+                        text: "Promedio NDVI"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
                         size_hint_y: None
@@ -128,7 +206,7 @@
                     border_radius: 20
                     radius: [15]
                     MDLabel:
-                        text: "MINI"
+                        text: "Promedio GCI"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
                         size_hint_y: None
@@ -144,36 +222,12 @@
                         size_hint_y: None
                         height: self.texture_size[1]
                         halign: "center"
-                MDCard:
-                    orientation: "vertical"
-                    padding: "8dp"
-                    size_hint_y: .2
-                    pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
-                    MDLabel:
-                        text: "BLUE"
-                        font_style:'Subtitle1'
-                        theme_text_color: "Secondary"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        halign: "center"
-                    MDSeparator:
-                        height: "1dp"
-                    MDLabel:
-                        id: label_stats_quantity_blue
-                        text: "0"
-                        font_style:'Subtitle1'
-                        theme_text_color: "Secondary"
-                        size_hint_y: None
-                        height: self.texture_size[1]
-                        halign: "center"
         MDCard:
             size_hint_y: .15
             pos_hint: {"center_x": .5, "center_y": .5}
             border_radius: 20
             radius: [5]
-            spacing: "60dp"
+            spacing: "80dp"
             padding: 25, 10
             MDTextField:
                 id: field_stats_date_start
@@ -188,4 +242,3 @@
             MDRaisedButton:
                 text: "Buscar"
                 pos_hint: {"center_x": .5 , "center_y":.5}
-                size_hint_x: 1

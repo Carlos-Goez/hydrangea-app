@@ -50,7 +50,7 @@ class DataTable(BoxLayout):
                 table_data.append({'text':str(data[y][z]),'size_hint_y':None,'height':20,'bcolor':(.06,.25,.50,1)}) #append the data
 
         self.ids.table_floor_layout.cols = self.columns #define value of cols to the value of self.columns
-        self.ids.table_floor.data = table_data #add table_data to data value
+        self.ids.table_floor.__data = table_data #add table_data to data value
 
 class DataTableApp(App):
     def build(self):

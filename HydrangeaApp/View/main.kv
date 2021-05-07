@@ -5,8 +5,6 @@
 #: include history.kv
 #: include login.kv
 #: include signup.kv
-<BackgroundLabel@Label+BackgroundColor>
-    background_color: 0, 0, 0, 1
 
 <ContentNavigationDrawer>:
     orientation: "vertical"
@@ -15,11 +13,10 @@
     MDIconButton:
         icon: 'account'
         user_font_size: '100sp'
-        text: 'Carlos Goez'
-        size_hint: 1,1
+        text: 'Carlos '
     MDLabel:
         id: name_account
-        text: "Carlos Goez"
+        text: "Carlos "
         font_style: 'Subtitle1'
         size_hint_y: None
         height: self.texture_size[1]
@@ -39,7 +36,6 @@
                     root.screen_manager.current = "Screen Home"
                 IconLeftWidget:
                     icon: 'home'
-
             OneLineIconListItem:
                 text: "Ingresar"
                 on_press:
@@ -47,7 +43,6 @@
                     root.screen_manager.current = "Screen Login"
                 IconLeftWidget:
                     icon: 'login'
-
             OneLineIconListItem:
                 text: "Registrar"
                 on_press:
@@ -55,7 +50,6 @@
                     root.screen_manager.current = "Screen SignUp"
                 IconLeftWidget:
                     icon: 'clipboard-account'
-
             OneLineIconListItem:
                 text: "Salir"
                 on_press:
@@ -71,13 +65,35 @@
     left_action_items: [["account", lambda x: root.nav_drawer.set_state("open")]]
 
 <DataTable>:
+
 <DataTableOrderActive>:
+
+<ClickableTextFieldRound>:
+    id: password_layout
+    size_hint_y: None
+    height: field_password.height
+    MDTextField:
+        id: field_password
+        hint_text: root.hint_text
+        hint_text: "Clave"
+        mode:"rectangle"
+        text: root.text
+        password: True
+        color_active: app.theme_cls.primary_light
+        icon_left: "key-variant"
+    MDIconButton:
+        icon: "eye-off"
+        ripple_scale: .5
+        pos_hint: {"center_y": .5}
+        pos: field_password.width - self.width + dp(8), 0
+        on_release:
+            self.icon = "eye" if self.icon == "eye-off" else "eye-off"
+            field_password.password = False if field_password.password is True else True
 
 Screen:
     Toolbar:
         id:toolbar
         nav_drawer: nav_drawer
-
     NavigationLayout:
         x: toolbar.height
         ScreenManager:
@@ -96,43 +112,36 @@ Screen:
                             text: 'Inicio'
                             icon: 'home'
                             Home:
-
                         MDBottomNavigationItem:
                             name: 'order'
                             text: 'Pedidos'
                             icon: 'clipboard-list'
                             Order:
-
                         MDBottomNavigationItem:
                             name: 'stats'
-                            text: 'Estadisticas'
+                            text: 'Estadísticas'
                             icon: 'trending-up'
                             Stats:
-
-
                         MDBottomNavigationItem:
                             name: 'history'
                             text: 'Historial'
                             icon: 'history'
                             History:
-
                         MDBottomNavigationItem:
                             name: 'setting'
                             text: 'Configuraciones'
                             icon: 'cogs'
                             Setting:
-
             Screen:
+                screen_manager: screen_manager
                 name: "Screen Login"
                 Login:
             Screen:
                 name: "Screen SignUp"
                 SignUp:
 
-
         MDNavigationDrawer:
             id: nav_drawer
-
             ContentNavigationDrawer:
                 screen_manager: screen_manager
                 nav_drawer: nav_drawer

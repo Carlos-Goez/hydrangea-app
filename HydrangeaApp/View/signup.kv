@@ -1,5 +1,7 @@
 <SignUp>:
-    MDFloatLayout:
+    id:signup
+    orientation: 'vertical'
+    FloatLayout:
         MDLabel:
             text: "Registrar"
             pos_hint:{"center_y":.80}
@@ -11,30 +13,26 @@
             hint_text: "Usuario"
             mode:"rectangle"
             pos_hint: {"center_x": .5 , "center_y":.6}
-            current_hint_text_color:0, 0, 0, 1
+            color_active: app.theme_cls.primary_light
             size_hint_x: 0.5
-        MDTextField:
-            id: field_register_password
-            hint_text: "Clave"
-            icon_right: 'eye-off'
-            mode:"rectangle"
+        ClickableTextFieldRound:
+            id: password_layout
             pos_hint: {"center_x": .5 , "center_y":.5}
             current_hint_text_color:0, 0, 0, 1
             size_hint_x: 0.5
-            password: True
-        MDChip:
+        MDLabel:
+            pos_hint: {'center_x': .5, "center_y":.4}
+            text: "Hacer Administrador"
+            font_style: "Subtitle1"
+            halign: 'center'
+        MDCheckbox:
             id: check_register_role
-            pos_hint: {"center_x": .5 , "center_y":.4}
-            size_hint_x: 0.35
-            text_color:0, 0, 0, 1
-            label:"  Hacer Administrador"
-            icon: 'account'
-            check: True
-            color: 0.5, 0.5, 0.5, 1
-
-
+            halign: 'left'
+            size_hint: None, None
+            size: "48dp", "48dp"
+            pos_hint: {'center_x': .7, "center_y":.4}
         MDRaisedButton:
             id: button_signup
             text: "Registrar"
             pos_hint: {"center_x": .5 , "center_y":.2}
-            size_hint_x: .3
+            on_release: signup.create_user()

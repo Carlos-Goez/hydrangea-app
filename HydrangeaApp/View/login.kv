@@ -1,4 +1,5 @@
 <Login>:
+    id: login
     MDFloatLayout:
         MDLabel:
             text: "Ingresar"
@@ -17,19 +18,14 @@
             hint_text: "Usuario"
             mode:"rectangle"
             pos_hint: {"center_x": .5 , "center_y":.5}
-            current_hint_text_color:0, 0, 0, 1
+            color_active: app.theme_cls.primary_light
             size_hint_x: 0.5
-        MDTextField:
-            id: field_password
-            hint_text: "Clave"
-            icon_right: 'eye-off'
-            mode:"rectangle"
+        ClickableTextFieldRound:
+            id: password_layout
             pos_hint: {"center_x": .5 , "center_y":.4}
             current_hint_text_color:0, 0, 0, 1
             size_hint_x: 0.5
-            mode:"rectangle"
-            password: True
         MDRaisedButton:
             text: "Ingresar"
             pos_hint: {"center_x": .5 , "center_y":.25}
-            size_hint_x: .3
+            on_release: login.create_session()
