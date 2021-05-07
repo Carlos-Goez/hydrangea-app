@@ -1,9 +1,13 @@
 import sqlite3
 
 
-class DBController:
+class DBModel:
 
-    db_path = 'database.db'
+    db_path = '../Models/database.db'
+
+    @staticmethod
+    def print_hello():
+        print("hello!!!!!")
 
     @staticmethod
     def dict_factory(cursor, row):
@@ -14,7 +18,7 @@ class DBController:
 
     @staticmethod
     def create_user(user, role, password):
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query_beginning = 'INSERT INTO User (Username, Role_ID, Password)'
         query_end = f'VALUES ("{user}", {role}, "{password}" )'
         try:
@@ -28,9 +32,9 @@ class DBController:
 
     @staticmethod
     def check_username(user):
-        db = sqlite3.connect(DBController.db_path)
-        db.row_factory = DBController.dict_factory
-        query = f'SELECT 1 AS Status FROM User WHERE Username = "{user}"'
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
+        query = f'SELECT COUNT(*) AS Status FROM User WHERE Username = "{user}"'
         try:
             cursor = db.cursor()
             cursor.execute(query)
@@ -42,23 +46,23 @@ class DBController:
         return data
 
     @staticmethod
-    def login(user, password):
-        db = sqlite3.connect(DBController.db_path)
-        db.row_factory = DBController.dict_factory
-        query = f'SELECT 1 AS Status FROM User WHERE Username = "{user}" AND Password = "{password}"'
+    def login(user):
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
+        query = f'SELECT * FROM User WHERE Username = "{user}"'
         try:
             cursor = db.cursor()
             cursor.execute(query)
-            data = cursor.fetchall()
+            data_user = cursor.fetchall()
             db.commit()
             db.close()
         except Exception as e:
             return e
-        return data
+        return data_user
 
     @staticmethod
     def create_order(order_id, username, quantity_mini, quantity_select, quantity_blue, size_box):
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query_beginning = """INSERT INTO OrderHistory (Order_ID,
                            Order_Status,
                            Username,
@@ -97,7 +101,7 @@ class DBController:
 
     @staticmethod
     def delete_order(order_id):
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query = f"DELETE FROM OrderHistory WHERE Order_ID = {order_id}"
         try:
             cursor = db.cursor()
@@ -110,8 +114,8 @@ class DBController:
 
     @staticmethod
     def check_active_orders():
-        db = sqlite3.connect(DBController.db_path)
-        db.row_factory = DBController.dict_factory
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
         query = "SELECT * FROM OrderHistory " \
                 "WHERE Order_Status = 'Pendiente' or  Order_Status = 'En Proceso' " \
                 "ORDER BY Creation_Date"
@@ -127,8 +131,8 @@ class DBController:
 
     @staticmethod
     def check_orders():
-        db = sqlite3.connect(DBController.db_path)
-        db.row_factory = DBController.dict_factory
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
         query = "SELECT * FROM OrderHistory"
         try:
             cursor = db.cursor()
@@ -142,7 +146,7 @@ class DBController:
 
     @staticmethod
     def update_status_order_ongoing():
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query = """UPDATE OrderHistory
                         SET Production_Date = (SELECT strftime('%Y-%m-%d %H:%M:%S', datetime('now'))),
                             Order_Status = 'En Proceso'
@@ -161,7 +165,7 @@ class DBController:
 
     @staticmethod
     def update_order_status_finished():
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query = f"""UPDATE OrderHistory
                         SET Finish_Date = (SELECT strftime('%Y-%m-%d %H:%M:%S', datetime('now'))),
                             Order_Status = 'Finalizado'
@@ -177,8 +181,8 @@ class DBController:
 
     @staticmethod
     def check_outstanding():
-        db = sqlite3.connect(DBController.db_path)
-        db.row_factory = DBController.dict_factory
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
         query = "SELECT Outstanding_Select, Outstanding_Blue, Outstanding_Mini " \
                 "FROM OrderHistory WHERE Order_Status = 'En Proceso'"
         try:
@@ -193,7 +197,7 @@ class DBController:
 
     @staticmethod
     def update_outstanding_mini():
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query = """UPDATE OrderHistory
                         SET Outstanding_Mini= Outstanding_Mini - 1
                         WHERE Order_Status = 'En Proceso'"""
@@ -208,7 +212,7 @@ class DBController:
 
     @staticmethod
     def update_outstanding_blue():
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query = """UPDATE OrderHistory
                             SET Outstanding_Blue = Outstanding_Blue - 1
                             WHERE Order_Status = 'En Proceso'"""
@@ -223,7 +227,7 @@ class DBController:
 
     @staticmethod
     def update_outstanding_select():
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query = """UPDATE OrderHistory
                             SET Outstanding_Select = Outstanding_Select - 1
                             WHERE Order_Status = 'En Proceso'"""
@@ -238,7 +242,7 @@ class DBController:
 
     @staticmethod
     def insert_image(order_id, image_rgb, image_noir, flower_type, ndvi, gci):
-        db = sqlite3.connect(DBController.db_path)
+        db = sqlite3.connect(DBModel.db_path)
         query = f""" INSERT INTO ImageHistory (Order_ID,
                            File_Path_RGB,
                            File_Path_NOIR,
@@ -266,8 +270,8 @@ class DBController:
 
     @staticmethod
     def history_images(order_id):
-        db = sqlite3.connect(DBController.db_path)
-        db.row_factory = DBController.dict_factory
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
         query = f"SELECT * FROM ImageHistory WHERE Order_ID = {order_id}"
         try:
             cursor = db.cursor()
@@ -281,8 +285,8 @@ class DBController:
 
     @staticmethod
     def calculate_stats(begging_date, end_date):
-        db = sqlite3.connect(DBController.db_path)
-        db.row_factory = DBController.dict_factory
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
         query = f"""SELECT  AVG(NOIR) AS Noir,
                             AVG(GCI) AS Gci,  
                             COUNT(DISTINCT Order_ID) AS Total_Order, 

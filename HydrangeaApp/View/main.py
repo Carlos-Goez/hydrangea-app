@@ -15,7 +15,12 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivy.properties import StringProperty
 from kivy.uix.relativelayout import RelativeLayout
-from HydrangeaApp.Models.ApplicationModel import DBController
+from kivymd.uix.list import MDList
+from HydrangeaApp.Controllers.Session import Session
+from HydrangeaApp.Controllers.ApplicationController import DataController
+from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.screenmanager import Screen
+from kivymd.uix.bottomnavigation import MDBottomNavigation
 import re
 
 
@@ -28,6 +33,40 @@ import re
 # rotX = Ejes.Rotacional(13,14)
 # #rotX = Ejes.Rotacional(11,15)
 # pinzas = Ejes.Pinzas(11,15,19)
+
+current_session = Session()
+
+
+class WindowsManager(ScreenManager):
+    def check_admin(self):
+        if current_session.get_role() != 1:
+            self.current = 'Screen Login'
+
+
+class BottomNavigationHome(MDBottomNavigation):
+    def check_admin(self):
+        if current_session.get_role() != '1':
+            self.switch_tab('home')
+
+
+class ScreenSignup(Screen):
+    def on_enter(self, *args):
+        self.check_admin()
+
+    def check_admin(self):
+        if current_session.get_role() != '1':
+            self.parent.current = 'Screen Login'
+
+
+class ScreenHome(Screen):
+    pass
+
+
+class ListMenu(MDList):
+    def logout(self):
+        self.parent.parent.parent.parent.parent.ids.bottom_navigation.switch_tab('home')
+        current_session.set_role(None)
+        current_session.set_username(None)
 
 
 class Home(BoxLayout):
@@ -56,8 +95,45 @@ class Toolbar(MDToolbar):
 
 class Login(BoxLayout):
     def create_session(self):
-        user = self.ids['field_user']
-        password = self.ids['password_layout']
+        user = self.ids['field_user'].text
+        password = self.ids['password_layout'].ids['field_password'].text
+
+        self.check_username(user, password)
+
+    def check_username(self, username, password):
+        username_text = username
+        password_text = password
+        username_check_false = False
+
+        if not re.match("^[a-zA-z0-9]", username):
+            username_check_false = True
+        if username_check_false or username_text.split() == [] or password_text.split() == []:
+            cancel_btn_username_dialogue = MDFlatButton(
+                text='Cerrar', on_release=self.close_username_dialogue)
+            self.dialog = MDDialog(
+                title='Dato Invalido',
+                text="Por favor ingrese una clave y usuario validos",
+                size_hint=(0.7, 0.2),
+                buttons=[cancel_btn_username_dialogue])
+            self.dialog.open()
+        else:
+            if DataController.login(username, password, current_session):
+                self.parent.parent.parent.parent.ids["bottom_navigation"].switch_tab('home')
+                self.parent.parent.current = 'Screen Home'
+            else:
+                cancel_btn_username_dialogue = MDFlatButton(
+                    text='Cerrar', on_release=self.close_username_dialogue)
+                self.dialog = MDDialog(
+                    title='Algo salio mal',
+                    text="Por favor verifique su usuario y contraseña",
+                    size_hint=(0.7, 0.2),
+                    buttons=[cancel_btn_username_dialogue])
+                self.dialog.open()
+        self.ids['field_user'].text = ''
+        self.ids['password_layout'].ids['field_password'].text = ''
+
+    def close_username_dialogue(self, obj):
+        self.dialog.dismiss()
 
 
 class SignUp(BoxLayout):
@@ -65,23 +141,17 @@ class SignUp(BoxLayout):
         user = self.ids['field_register_user'].text
         password = self.ids.password_layout.ids.field_password.text
         role = self.ids['check_register_role'].active
-        self.check_username(user, password)
+        self.check_username(user, password, role)
 
-        if user == 'andres' and password == '123' and role:
-            self.parent.parent.current = 'Screen Home'
-            self.ids['field_register_user'].text = ''
-            self.ids.password_layout.ids.field_password.text = ''
-
-    def check_username(self, username, password):
+    def check_username(self, username, password, role):
 
         username_text = username
         password_text = password
         username_check_false = False
 
-        if not re.match("^[a-zA-z]", username):
+        if not re.match("^[a-zA-z0-9]", username):
             username_check_false = True
-        if username_check_false or username_text.split(
-        ) == [] or password_text.split() == []:
+        if username_check_false or username_text.split() == [] or password_text.split() == []:
             cancel_btn_username_dialogue = MDFlatButton(
                 text='Retry', on_release=self.close_username_dialogue)
             self.dialog = MDDialog(
@@ -90,6 +160,20 @@ class SignUp(BoxLayout):
                 size_hint=(0.7, 0.2),
                 buttons=[cancel_btn_username_dialogue])
             self.dialog.open()
+        else:
+            notice = DataController.singup(username, password, 1 if role else 2)
+            cancel_btn_username_dialogue = MDFlatButton(
+                text='Cerrar', on_release=self.close_username_dialogue)
+            self.dialog = MDDialog(
+                title='Aviso',
+                text=notice,
+                size_hint=(0.7, 0.2),
+                buttons=[cancel_btn_username_dialogue])
+            self.dialog.open()
+
+        self.ids['field_register_user'].text = ''
+        self.ids.password_layout.ids.field_password.text = ''
+        self.ids['check_register_role'].active = False
 
     def close_username_dialogue(self, obj):
         self.dialog.dismiss()
