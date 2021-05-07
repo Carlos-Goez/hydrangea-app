@@ -1,4 +1,6 @@
 
+from HydrangeaApp.Models import ApplicationModel
+
 
 class DataController:
 

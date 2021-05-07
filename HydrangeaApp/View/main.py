@@ -15,7 +15,9 @@ from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
 from kivy.properties import StringProperty
 from kivy.uix.relativelayout import RelativeLayout
+from HydrangeaApp.Models.ApplicationModel import DBController
 import re
+
 
 # import _thread
 # import Ejes
