@@ -626,7 +626,6 @@ class MainApp(MDApp):
     def handle_message(self, msg):
         msg = msg.decode('utf-8')
         print("received:  {}\n".format(msg))
-        print(self.root.ids.home.ids)
         if msg == "Select" or "Blue" or "Mini":
             data_flower = DataController.check_non_process_flowers()
             if not statistics.mean(data_flower) > 0:
@@ -651,9 +650,10 @@ class MainApp(MDApp):
             self.root.ids.home.ids.label_quantity_mini.text = str(data_flower[0])
             self.root.ids.home.ids.label_quantity_select.text = str(data_flower[1])
             self.root.ids.home.ids.label_quantity_blue.text = str(data_flower[2])
-        if msg == 'Start':
-            print('On')
 
+        if msg == 'Start':
+            self.root.ids.home.ids.flower_image.source = '/home/agoez/Pictures/anki2.jpg'
+            print('On')
         print("responded: {}\n".format(msg))
         return msg.encode('utf-8')
 
