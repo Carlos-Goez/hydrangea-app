@@ -365,7 +365,9 @@ class DBModel:
                                 FROM ImageHistory 
                                 WHERE Flower_Type = 'Blue' AND Capture_Date 
                                     BETWEEN DATE ('{begging_date}') AND DATE ('{end_date}', '+1 day')) AS Total_Blue,
-                            (SELECT AVG((julianday(Finish_Date) - julianday(Production_Date))*24*60/(Quantity_Blue+Quantity_Mini+Quantity_Select))
+                            (SELECT AVG((julianday(Finish_Date) - julianday(Production_Date))*24*60/(Quantity_Blue + 
+                                                                                                     Quantity_Mini + 
+                                                                                                     Quantity_Select))
                               FROM OrderHistory 
                               WHERE Finish_Date 
                                 BETWEEN DATE ('{begging_date}') AND DATE ('{end_date}', '+1 day')) AS Performance

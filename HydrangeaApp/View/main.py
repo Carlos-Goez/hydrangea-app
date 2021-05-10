@@ -1,4 +1,26 @@
 # -*-coding utf-8-*-
+# install_twisted_rector must be called before importing and using the reactor
+
+from kivy.support import install_twisted_reactor
+
+install_twisted_reactor()
+
+from twisted.internet import reactor
+from twisted.internet import protocol
+
+
+class EchoServer(protocol.Protocol):
+    def dataReceived(self, data):
+        response = self.factory.app.handle_message(data)
+        if response:
+            self.transport.write(response)
+
+
+class EchoServerFactory(protocol.Factory):
+    protocol = EchoServer
+
+    def __init__(self, app):
+        self.app = app
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ObjectProperty
@@ -21,14 +43,12 @@ from HydrangeaApp.Controllers.ApplicationController import DataController
 from kivy.uix.screenmanager import ScreenManager
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.bottomnavigation import MDBottomNavigation
-from kivymd.uix.dialog import BaseDialog
 from kivy.clock import Clock
 from kivy.core.clipboard import Clipboard
 from datetime import datetime
 
+import statistics
 import re
-import asyncio
-import os
 import json
 
 PORT = 5920
@@ -125,6 +145,7 @@ class Order(BoxLayout):
         box_size = self.ids["field_order_box_size"].text
         order_id = self.ids["field_order_id"].text
         self.check_username(quantity_mini, quantity_select, quantity_blue, box_size, order_id)
+        self.parent.parent.parent.parent.parent.parent.parent.parent.ids.home.charge_data()
 
     def check_username(self, mini, select, blue, box_size, order_id):
         check_data = False
@@ -592,12 +613,49 @@ class DataOrderActiveTitle(BoxLayout):
 
 
 class MainApp(MDApp):
+    label = None
+
     def build(self):
         self.title = "HydrangeaApp"
+        reactor.listenTCP(8000, EchoServerFactory(self))
         self.theme_cls.primary_palette = "Indigo"
 
     def on_start(self):
         self.root.ids.screen_manager.current = 'Screen Login'
+
+    def handle_message(self, msg):
+        msg = msg.decode('utf-8')
+        print("received:  {}\n".format(msg))
+        print(self.root.ids.home.ids)
+        if msg == "Select" or "Blue" or "Mini":
+            data_flower = DataController.check_non_process_flowers()
+            if not statistics.mean(data_flower) > 0:
+                DataController.update_state_finish_order()
+                DataController.update_begging_state_order_ongoing()
+                self.root.ids.home.charge_data()
+            if msg == "Select":
+                print(DataController.update_outstanding_select())
+                self.root.ids.home.ids.label_flower_type.text = 'Mini'
+            if msg == "Blue":
+                print(DataController.update_outstanding_blue())
+                self.root.ids.home.ids.label_flower_type.text = 'Blue'
+            if msg == 'Mini':
+                print(DataController.update_outstanding_mini())
+                self.root.ids.home.ids.label_flower_type.text = 'Mini'
+            data_flower = DataController.check_non_process_flowers()
+            if not statistics.mean(data_flower) > 0:
+                DataController.update_state_finish_order()
+                DataController.update_begging_state_order_ongoing()
+                self.root.ids.home.charge_data()
+            data_flower = DataController.check_non_process_flowers()
+            self.root.ids.home.ids.label_quantity_mini.text = str(data_flower[0])
+            self.root.ids.home.ids.label_quantity_select.text = str(data_flower[1])
+            self.root.ids.home.ids.label_quantity_blue.text = str(data_flower[2])
+        if msg == 'Start':
+            print('On')
+
+        print("responded: {}\n".format(msg))
+        return msg.encode('utf-8')
 
 
 if __name__ == "__main__":
