@@ -61,6 +61,53 @@ class DBModel:
         return data_user
 
     @staticmethod
+    def check_order(order_id):
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
+        query = f'SELECT COUNT(*) AS Status FROM OrderHistory WHERE Order_ID = {order_id}'
+        try:
+            cursor = db.cursor()
+            cursor.execute(query)
+            data = cursor.fetchall()
+            db.commit()
+            db.close()
+        except Exception as e:
+            return e
+        return data
+
+    @staticmethod
+    def search_order_inside_machine():
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
+        query = f'SELECT * FROM OrderHistory ' \
+                f'WHERE (Order_Status = "En Proceso" OR Order_Status = "Pendiente") ORDER BY Creation_Date LIMIT 2'
+        try:
+            cursor = db.cursor()
+            cursor.execute(query)
+            data = cursor.fetchall()
+            db.commit()
+            db.close()
+        except Exception as e:
+            return e
+        return data
+
+    @staticmethod
+    def check_order_ongoing(order_id):
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
+        query = f'SELECT COUNT(*) AS Status FROM OrderHistory WHERE Order_ID = {order_id} ' \
+                f'AND (Order_Status = "En Proceso" OR Order_Status = "Pendiente")'
+        try:
+            cursor = db.cursor()
+            cursor.execute(query)
+            data = cursor.fetchall()
+            db.commit()
+            db.close()
+        except Exception as e:
+            return e
+        return data
+
+    @staticmethod
     def create_order(order_id, username, quantity_mini, quantity_select, quantity_blue, size_box):
         db = sqlite3.connect(DBModel.db_path)
         query_beginning = """INSERT INTO OrderHistory (Order_ID,
@@ -84,7 +131,7 @@ class DBModel:
                            {quantity_select},
                            {quantity_blue},
                            (CASE
-                               WHEN (SELECT Packing_Position FROM OrderHistory ORDER BY ROWID DESC LIMIT 1) < 4 
+                               WHEN (SELECT Packing_Position FROM OrderHistory ORDER BY ROWID DESC LIMIT 1) < 2 
                                     THEN (SELECT Packing_Position FROM OrderHistory ORDER BY ROWID DESC LIMIT 1) + 1
                                ELSE 1
                             END
@@ -134,6 +181,21 @@ class DBModel:
         db = sqlite3.connect(DBModel.db_path)
         db.row_factory = DBModel.dict_factory
         query = "SELECT * FROM OrderHistory"
+        try:
+            cursor = db.cursor()
+            cursor.execute(query)
+            data_order = cursor.fetchall()
+            db.commit()
+            db.close()
+        except Exception as e:
+            return e
+        return data_order
+
+    @staticmethod
+    def check_order_ongoing_begging():
+        db = sqlite3.connect(DBModel.db_path)
+        db.row_factory = DBModel.dict_factory
+        query = f"SELECT COUNT(*) AS Status FROM OrderHistory WHERE Order_Status = 'En Proceso'"
         try:
             cursor = db.cursor()
             cursor.execute(query)

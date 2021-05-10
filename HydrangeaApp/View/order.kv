@@ -1,4 +1,5 @@
 <Order>:
+    id: box_order
     BoxLayout:
         orientation:'vertical'
         spacing: "5dp"
@@ -7,8 +8,7 @@
             orientation: "vertical"
             size_hint_y: .05
             pos_hint: {"center_x": .5, "center_y": .5}
-            border_radius: 20
-            radius: [5]
+            border_radius: 2
             MDLabel:
                 text: "TABLA DE PEDIDOS"
                 font_style:'H6'
@@ -16,14 +16,17 @@
                 size_hint_y: None
                 height: self.texture_size[1]
                 halign: "center"
-        DataTable:
+        BoxLayout:
+            id: box_order_reload
             size_hint_y: .5
+            DataTableOrderActive:
+                id: data_table_order_home
+
         MDCard:
             orientation: "vertical"
             size_hint_y: .05
             pos_hint: {"center_x": .5, "center_y": .5}
-            border_radius: 20
-            radius: [5]
+            border_radius: 2
             MDLabel:
                 text: "AGREGAR PEDIDO"
                 font_style:'H6'
@@ -75,7 +78,9 @@
                     id: button_add_order
                     text: "Agregar"
                     pos_hint: {"center_x": .5 , "center_y": .5}
+                    on_release: box_order.create_order()
                 MDRaisedButton:
                     id: button_delete_order
                     text: "Borrar"
                     pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: box_order.delete_order()

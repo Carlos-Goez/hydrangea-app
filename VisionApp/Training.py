@@ -14,7 +14,7 @@ data_validation = './data/Validation'
 
 numbers_epoch = 20
 height, length = 200, 200
-batch_size = 1
+batch_size = 10
 steps = 17
 steps_validation = 40
 filters_conv1 = 32

@@ -4,14 +4,62 @@
         orientation: "vertical"
         BoxLayout:
             size_hint_y: 0.4
-            DataTableOrderActive:
+            spacing: '10dp'
+            padding: 25, 10
+            BoxLayout:
+                size_hint_x: 0.12
+                orientation: "vertical"
+                spacing: '10dp'
+                BoxLayout:
+                    size_hint_y: 0.3
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .4
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 2
+                    MDLabel:
+                        id: label_activo
+                        text: "Activo"
+                        font_style:'Overline'
+                        theme_text_color: "Error"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                        valign: "middle"
+                MDCard:
+                    orientation: "vertical"
+                    padding: "8dp"
+                    size_hint_y: .4
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    border_radius: 2
+                    MDLabel:
+                        id: label_siguiente
+                        text: "SIGUIENTE"
+                        font_style:'Overline'
+                        theme_text_color: "Hint"
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: "center"
+                        valign: "middle"
+            BoxLayout:
+                size_hint_x: 0.88
+                orientation:"vertical"
+                spacing: '10dp'
+                DataOrderActiveTitle:
+                    size_hint_y: 0.3
+                DataOrderActive:
+                    id: data_order_ongoing
+                    size_hint_y: 0.4
+                DataOrderActive:
+                    id: data_order_outstanding
+                    size_hint_y: 0.4
         BoxLayout:
             size_hint_y: 0.6
             spacing: "10dp"
             padding: 25, 10
             MDCard:
-                border_radius: 20
-                radius: [15]
+                border_radius: 2
                 padding: "8dp"
                 orientation: "vertical"
                 size_hint_x: 0.6
@@ -23,7 +71,7 @@
                     id: flower_image
                     size: self.texture_size
                     size_hint_y: 0.9
-                    source: '/home/agoez/Downloads/OneDrive-2021-02-02/5.jpg'
+                    source: '/home/agoez/Pictures/anki.jpg'
 
                 MDSeparator:
                     height: "1dp"
@@ -44,8 +92,7 @@
                     padding: "8dp"
                     size_hint_y: .19
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "FLORES POR PROCESAR"
                         font_style:'H6'
@@ -58,8 +105,7 @@
                     padding: "8dp"
                     size_hint_y: .27
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "SELECTA"
                         font_style:'Subtitle1'
@@ -82,8 +128,7 @@
                     padding: "8dp"
                     size_hint_y: .27
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "MINI"
                         font_style:'Subtitle1'
@@ -106,8 +151,7 @@
                     padding: "8dp"
                     size_hint_y: .27
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "BLUE"
                         font_style:'Subtitle1'

@@ -182,7 +182,7 @@ class Elevador():
         # 90 mm avanza 360 grados
         distanciaFaltante = distanciaFinal - self.distancia
         gradosFaltantes = (distanciaFaltante/14)*(180/pi)
-        gradosPut=self.grados+(gradosFaltantes)
+        gradosPut = self.grados + (gradosFaltantes)
         self.GotoGrados(gradosPut,frec)
         self.distancia = self.grados*(pi/180)*14
 
@@ -190,9 +190,8 @@ class Elevador():
         pca.frequency = 300
         GPIO.output(self.direccion,1)
         pca.channels[self.paso].duty_cycle = 0x7fff 
-        while (GPIO.input(self.stop)):
+        while GPIO.input(self.stop):
             pass
         pca.channels[self.paso].duty_cycle = 0x0000
         self.grados = 0
         self.distancia = 0
-        

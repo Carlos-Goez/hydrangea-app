@@ -7,22 +7,23 @@
 #: include signup.kv
 
 <ContentNavigationDrawer>:
+    id: cont_nav_drawer
     orientation: "vertical"
     padding: "8dp"
     spacing: "8dp"
     MDIconButton:
         icon: 'account'
         user_font_size: '100sp'
-        text: 'Carlos '
+        text: 'account'
     MDLabel:
         id: name_account
-        text: "Carlos "
+        text: "None"
         font_style: 'Subtitle1'
         size_hint_y: None
         height: self.texture_size[1]
     MDLabel:
         id: role_account
-        text: "Admin"
+        text: "None"
         font_style: 'Caption'
         size_hint_y: None
         height: self.texture_size[1]
@@ -66,9 +67,184 @@
     title: "HydrangeaApp"
     left_action_items: [["account", lambda x: root.nav_drawer.set_state("open")]]
 
-<DataTable>:
-
 <DataTableOrderActive>:
+
+<DataOrderActiveTitle>:
+    MDBoxLayout:
+        spacing: "10dp"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                text: "Pedido"
+                font_style:'Subtitle1'
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+                valign: "middle"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                text: "Posición Caja"
+                font_style:'Subtitle1'
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+                valign: "middle"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                text: "Tamaño Caja"
+                font_style:'Subtitle1'
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+                valign: "middle"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                text: "Mini"
+                font_style:'Subtitle1'
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+                valign: "middle"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                text: "Selecta"
+                font_style:'Subtitle1'
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+                valign: "middle"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                text: "Blue"
+                font_style:'Subtitle1'
+                theme_text_color: "Primary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+                valign: "middle"
+
+<DataOrderActive>:
+    MDBoxLayout:
+        spacing: "10dp"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                id: order_id
+                text: "00000"
+                font_style:'Subtitle1'
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                id: box_size
+                text: "0"
+                font_style:'Subtitle1'
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                id: box
+                text: "P"
+                font_style:'Subtitle1'
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                id: mini
+                text: "0"
+                font_style:'Subtitle1'
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                id:select
+                text: "0"
+                font_style:'Subtitle1'
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+        MDCard:
+            orientation: "vertical"
+            padding: "8dp"
+            size_hint_x: .2
+            pos_hint: {"center_x": .5, "center_y": .5}
+            border_radius: 2
+            MDLabel:
+                id: blue
+                text: "0"
+                font_style:'Subtitle1'
+                theme_text_color: "Secondary"
+                size_hint_y: None
+                height: self.texture_size[1]
+                halign: "center"
+
 
 <ClickableTextFieldRound>:
     id: password_layout
@@ -104,7 +280,6 @@ Screen:
                 name: "Screen Home"
                 id: screen_home
                 BoxLayout:
-                    id: test
                     orientation: 'vertical'
                     Toolbar:
                         id:toolbar
@@ -127,12 +302,12 @@ Screen:
                             text: 'Estadísticas'
                             icon: 'trending-up'
                             Stats:
-                        MDBottomNavigationItem:
-                            id: bottom_history
-                            name: 'history'
-                            text: 'Historial'
-                            icon: 'history'
-                            History:
+#                        MDBottomNavigationItem:
+#                            id: bottom_history
+#                            name: 'history'
+#                            text: 'Historial'
+#                            icon: 'history'
+#                            History:
                         MDBottomNavigationItem:
                             id: bottom_setting
                             name: 'setting'
@@ -152,5 +327,6 @@ Screen:
         MDNavigationDrawer:
             id: nav_drawer
             ContentNavigationDrawer:
+                id: content_drawer
                 screen_manager: screen_manager
                 nav_drawer: nav_drawer

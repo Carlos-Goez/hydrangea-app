@@ -1,4 +1,5 @@
 <Stats>:
+    id: stats
     BoxLayout:
         orientation: 'vertical'
         spacing: "10dp"
@@ -7,8 +8,7 @@
             orientation: "vertical"
             size_hint_y: .05
             pos_hint: {"center_x": .5, "center_y": .5}
-            border_radius: 20
-            radius: [5]
+            border_radius: 2
             MDLabel:
                 text: "ESTADÍSTICAS"
                 font_style:'H6'
@@ -30,8 +30,7 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "Total Flores Procesadas"
                         font_style:'Subtitle1'
@@ -42,7 +41,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_global_flower_quantity
+                        id: global_flower_quantity
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -54,8 +53,7 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "Selecta"
                         font_style:'Subtitle1'
@@ -66,7 +64,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_stats_quantity_select
+                        id: stats_quantity_select
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -78,8 +76,7 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "Mini"
                         font_style:'Subtitle1'
@@ -90,7 +87,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_stats_quantity_mini
+                        id: stats_quantity_mini
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -102,8 +99,7 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "Blue"
                         font_style:'Subtitle1'
@@ -114,7 +110,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_stats_quantity_blue
+                        id: stats_quantity_blue
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -130,8 +126,7 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "Total Pedidos Procesados"
                         font_style:'Subtitle1'
@@ -142,7 +137,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_global_flower_quantity
+                        id: global_order_quantity
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -154,10 +149,9 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
-                        text: "EFICIENCIA"
+                        text: "Eficiencia"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
                         size_hint_y: None
@@ -166,7 +160,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_performance
+                        id: performance
                         text: "5 flores/min"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -179,8 +173,7 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "Promedio NDVI"
                         font_style:'Subtitle1'
@@ -191,7 +184,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_stats_quantity_select
+                        id: average_ndvi
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -203,8 +196,7 @@
                     padding: "8dp"
                     size_hint_y: .2
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    border_radius: 20
-                    radius: [15]
+                    border_radius: 2
                     MDLabel:
                         text: "Promedio GCI"
                         font_style:'Subtitle1'
@@ -215,7 +207,7 @@
                     MDSeparator:
                         height: "1dp"
                     MDLabel:
-                        id: label_stats_quantity_mini
+                        id: average_gci
                         text: "0"
                         font_style:'Subtitle1'
                         theme_text_color: "Secondary"
@@ -225,20 +217,20 @@
         MDCard:
             size_hint_y: .15
             pos_hint: {"center_x": .5, "center_y": .5}
-            border_radius: 20
-            radius: [5]
+            border_radius: 2
             spacing: "80dp"
             padding: 25, 10
             MDTextField:
                 id: field_stats_date_start
-                hint_text: "Fecha Inicio"
+                hint_text: "Fecha Inicio "
                 mode: "rectangle"
                 current_hint_text_color:0, 0, 0, 1
             MDTextField:
                 id: field_stats_date_end
-                hint_text: "Fecha Final"
+                hint_text: "Fecha Final "
                 mode: "rectangle"
                 current_hint_text_color:0, 0, 0, 1
             MDRaisedButton:
                 text: "Buscar"
                 pos_hint: {"center_x": .5 , "center_y":.5}
+                on_release: stats.calculate_stats()
