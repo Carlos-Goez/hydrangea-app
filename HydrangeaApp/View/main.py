@@ -51,18 +51,15 @@ import statistics
 import re
 import json
 
-PORT = 5920
-
 # import _thread
-# import Ejes
-# traslX = Ejes.Traslacional(4,10,16)
-# traslY = Ejes.Traslacional(5,11,17)
-# traslZ = Ejes.Elevador(6,12,18)
-# rotY = Ejes.Rotacional(8,13)
-# rotX = Ejes.Rotacional(13,14)
-# #rotX = Ejes.Rotacional(11,15)
-# pinzas = Ejes.Pinzas(11,15,19)
-
+# from HydrangeaApp.temp import Ejes
+#
+# traslX = Ejes.Traslacional(4, 10, 16)
+# traslY = Ejes.Traslacional(5, 11, 17)
+# traslZ = Ejes.Elevador(6, 12, 18)
+# rotY = Ejes.RotacionalPlanterios(8, 13)
+# rotX = Ejes.Rotacional(13, 14)
+# pinzas = Ejes.Pinzas(11, 15, 19, 20)
 
 current_session = Session()
 
@@ -252,10 +249,11 @@ class Stats(BoxLayout):
         self.ids.stats_quantity_select.text = str(data_stats[0]["Total_Select"])
         self.ids.stats_quantity_mini.text = str(data_stats[0]["Total_Mini"])
         self.ids.stats_quantity_blue.text = str(data_stats[0]["Total_Blue"])
-        self.ids.performance.text = str(float("{:.2f}".format(data_stats[0]["Performance"])))+ '  flores / min'
+        self.ids.performance.text = str(float("{:.2f}".format(data_stats[0]["Performance"]))) + 'flores / min'
         self.ids.global_order_quantity.text = str(data_stats[0]["Total_Order"])
-        self.ids.average_ndvi.text = str(float("{:.2f}".format(data_stats[0]["Noir"])))
-        self.ids.average_gci.text = str(float("{:.2f}".format(data_stats[0]["Gci"])))
+        if data_stats[0]["Noir"] is not None:
+            self.ids.average_ndvi.text = str(float("{:.2f}".format(data_stats[0]["Noir"])))
+            self.ids.average_gci.text = str(float("{:.2f}".format(data_stats[0]["Gci"])))
 
 
 class History(BoxLayout):
@@ -617,14 +615,15 @@ class MainApp(MDApp):
 
     def build(self):
         self.title = "HydrangeaApp"
-        reactor.listenTCP(8000, EchoServerFactory(self))
+        reactor.listenTCP(8200, EchoServerFactory(self))
         self.theme_cls.primary_palette = "Indigo"
 
     def on_start(self):
         self.root.ids.screen_manager.current = 'Screen Login'
 
     def handle_message(self, msg):
-        msg = msg.decode('utf-8')
+        request = json.loads(msg)
+        msg = request['type']
         print("received:  {}\n".format(msg))
         if msg == "Select" or "Blue" or "Mini":
             data_flower = DataController.check_non_process_flowers()
@@ -633,14 +632,23 @@ class MainApp(MDApp):
                 DataController.update_begging_state_order_ongoing()
                 self.root.ids.home.charge_data()
             if msg == "Select":
-                print(DataController.update_outstanding_select())
-                self.root.ids.home.ids.label_flower_type.text = 'Mini'
+                if DataController.update_outstanding_select() is None:
+                    self.root.ids.home.ids.label_flower_type.text = 'Mini'
+                    # traslX = Ejes.Traslacional(4, 10, 16)
+                else:
+                    self.root.ids.home.ids.label_flower_type.text = 'No corresponde a pedido'
             if msg == "Blue":
-                print(DataController.update_outstanding_blue())
-                self.root.ids.home.ids.label_flower_type.text = 'Blue'
+                if DataController.update_outstanding_blue() is None:
+                    self.root.ids.home.ids.label_flower_type.text = 'Blue'
+                    # traslX = Ejes.Traslacional(4, 10, 16)
+                else:
+                    self.root.ids.home.ids.label_flower_type.text = 'No corresponde a pedido'
+                    # traslX = Ejes.Traslacional(4, 10, 16)
             if msg == 'Mini':
-                print(DataController.update_outstanding_mini())
-                self.root.ids.home.ids.label_flower_type.text = 'Mini'
+                if DataController.update_outstanding_mini() is None:
+                    self.root.ids.home.ids.label_flower_type.text = 'Mini'
+                else:
+                    self.root.ids.home.ids.label_flower_type.text = 'No corresponde a pedido'
             data_flower = DataController.check_non_process_flowers()
             if not statistics.mean(data_flower) > 0:
                 DataController.update_state_finish_order()
