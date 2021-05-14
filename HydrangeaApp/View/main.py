@@ -1,6 +1,9 @@
 # -*-coding utf-8-*-
 # install_twisted_rector must be called before importing and using the reactor
 
+import sys
+sys.path.insert(0, '/home/pi/Documents/TG/hydrangea-app/')
+
 from kivy.support import install_twisted_reactor
 
 install_twisted_reactor()
