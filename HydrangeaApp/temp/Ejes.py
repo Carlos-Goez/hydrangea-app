@@ -19,17 +19,20 @@ def initConfig():
 
 
 class Pinzas:
-    def __init__(self, direccion, paso, stop, sensor):
+    def __init__(self, direccion, paso, stop, sensor, turn_on_sensor=False):
         self.direccion = direccion
         self.paso = paso
         self.stop = stop
         self.estado = "OFF"
         self.sensor = sensor
+        self._switch_sensor = False
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(direccion, GPIO.OUT)
         GPIO.setup(paso, GPIO.OUT)
         GPIO.setup(stop, GPIO.IN)
         GPIO.setup(sensor, GPIO.IN)
+        if turn_on_sensor:
+            self.Listen()
 
     def POpen(self):
         pca.frequency = 200
@@ -38,11 +41,16 @@ class Pinzas:
         sleep(0.7)
         pca.channels[self.paso].duty_cycle = 0x0000
 
+    def turn_on_sensor(self, turn_on_sensor):
+        self._switch_sensor = turn_on_sensor
+        if turn_on_sensor:
+            self.Listen()
+
     def PStop(self):
         pca.frequency = 200
         GPIO.output(self.direccion,0)
         pca.channels[self.paso].duty_cycle = 0x7fff
-        while (GPIO.input(self.stop)):
+        while GPIO.input(self.stop):
             pass
         pca.channels[self.paso].duty_cycle = 0x0000
 
@@ -50,13 +58,13 @@ class Pinzas:
         pca.frequency = 200
         GPIO.output(self.direccion,0)
         pca.channels[self.paso].duty_cycle = 0x7fff
-        while (GPIO.input(self.stop)):
+        while GPIO.input(self.stop):
             pass
         pca.channels[self.paso].duty_cycle = 0x0000
         self.Listen()
 
     def Listen(self):
-        while (GPIO.input(self.sensor)==1):
+        while GPIO.input(self.sensor) == 1:
             print("nada que me llega")
             time.sleep(1)
         print("esto es una belleza")

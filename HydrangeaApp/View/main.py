@@ -55,14 +55,14 @@ import re
 import json
 
 # import _thread
-# from HydrangeaApp.temp import Ejes
+from HydrangeaApp.temp import Ejes
 #
 # traslX = Ejes.Traslacional(4, 10, 16)
 # traslY = Ejes.Traslacional(5, 11, 17)
 # traslZ = Ejes.Elevador(6, 12, 18)
 # rotY = Ejes.RotacionalPlanterios(8, 13)
 # rotX = Ejes.Rotacional(13, 14)
-# pinzas = Ejes.Pinzas(11, 15, 19, 20)
+pinzas = Ejes.Pinzas(11, 15, 19, 20)
 
 current_session = Session()
 
@@ -109,6 +109,14 @@ class ListMenu(MDList):
 class Home(BoxLayout):
     def on_kv_post(self, base_widget):
         self.charge_data(self)
+
+    def turn_on_machine(self, *args):
+        if self.ids.button_on.text == 'OFF':
+            self.ids.button_on.text = 'ON'
+            pinzas.turn_on_sensor(True)
+        else:
+            self.ids.button_on.text = 'OFF'
+            pinzas.turn_on_sensor(False)
 
     def charge_data(self, *args):
         # Loads data into data grip home
