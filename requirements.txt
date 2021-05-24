@@ -2,6 +2,8 @@ absl-py==0.12.0
 antiorm==1.2.1
 astor==0.8.1
 astunparse==1.6.3
+attrs==21.2.0
+Automat==20.2.0
 bcrypt==3.2.0
 board==1.0
 cached-property==1.5.2
@@ -9,6 +11,7 @@ cachetools==4.2.2
 certifi==2020.12.5
 cffi==1.14.5
 chardet==4.0.0
+constantly==15.1.0
 db==0.1.1
 db-sqlite3==0.0.1
 docutils==0.16
@@ -19,8 +22,11 @@ google-auth-oauthlib==0.4.4
 google-pasta==0.2.0
 grpcio==1.32.0
 h5py==2.10.0
+hyperlink==21.0.0
 idna==2.10
+imageio==2.9.0
 importlib-metadata==4.0.1
+incremental==21.3.0
 Keras==2.4.3
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.2
@@ -49,8 +55,10 @@ tensorboard-plugin-wit==1.8.0
 tensorflow==2.2.0
 tensorflow-estimator==2.2.0
 termcolor==1.1.0
+Twisted==21.2.0
 typing-extensions==3.7.4.3
 urllib3==1.26.3
 Werkzeug==1.0.1
 wrapt==1.12.1
 zipp==3.4.1
+zope.interface==5.4.0
