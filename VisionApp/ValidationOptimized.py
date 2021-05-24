@@ -5,7 +5,7 @@ from keras_preprocessing.image import load_img, img_to_array
 
 class ClusterFlower:
     height, length = 200, 200
-    model = 'converted_model.tflite'
+    model = '/home/agoez/Documents/University/hydrangea-app/VisionApp/converted_model.tflite'
 
     @staticmethod
     def predict(file):
@@ -35,4 +35,3 @@ class ClusterFlower:
         return dict_cluster
 
 
-print(ClusterFlower.predict('Fotos_Prueba/m1.jpg'))

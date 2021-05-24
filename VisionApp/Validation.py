@@ -5,9 +5,9 @@ from keras.models import load_model
 height, length = 200, 200
 
 model = './model/model.h5'
-#weight = './model/pesos.h5'
+weight = './model/pesos.h5'
 cnn = load_model(model)
-#cnn.load_weights(weight)
+cnn.load_weights(weight)
 
 
 def predict(file):
@@ -26,4 +26,4 @@ def predict(file):
     return respond
 
 
-print(predict('Fotos_Prueba/b2.jpg'))
+print(predict('Fotos_Prueba/b3.jpg'))

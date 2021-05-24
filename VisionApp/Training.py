@@ -14,8 +14,8 @@ data_validation = './data/Validation'
 
 numbers_epoch = 20
 height, length = 200, 200
-batch_size = 10
-steps = 17
+batch_size = 15
+steps = 15
 steps_validation = 40
 filters_conv1 = 32
 filters_conv2 = 64
@@ -23,7 +23,7 @@ size_filter1 = (3, 3)
 size_filter2 = (2, 2)
 size_pool = (2, 2)
 number_class = 3
-learning_rate = 0.0001
+learning_rate = 0.0005
 
 # Pre processing images
 

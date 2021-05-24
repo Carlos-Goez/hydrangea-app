@@ -1,3 +1,152 @@
 <Setting>:
+    id: screen_setting
     MyGrid:
+        id: box_setting
+        cols:6
+        padding: '15dp'
+        spacing: '10dp'
 
+        # Position control axis x
+        MDLabel:
+            text: 'X'
+            halign: 'center'
+            font_style: 'H5'
+        TextInput:
+            id: text_axis_x
+            multiline: False
+            halign: 'center'
+        Button:
+            id: btn_axis_x_up
+            text: 'UP'
+            on_release: box_setting.btn_x_up()
+        Button:
+            id: btn_axis_x_down
+            text: 'Down'
+            on_release: box_setting.btn_x_down()
+        Button:
+            id: btn_axis_x_home
+            text: 'reset'
+            on_release: box_setting.btn_x_reset()
+        Button:
+            id: btn_axis_x_goto
+            text: 'Go to'
+            on_release: box_setting.btn_x_goto()
+
+        # Position control axis y
+        MDLabel:
+            text: 'Y'
+            halign: 'center'
+            font_style: 'H5'
+        TextInput:
+            id: text_axis_y
+            multiline: False
+            halign: 'center'
+        Button:
+            id: btn_axis_y_up
+            text: 'UP'
+            on_release: box_setting.btn_y_up()
+        Button:
+            id: btn_axis_y_down
+            text: 'Down'
+            on_release: box_setting.btn_y_down()
+        Button:
+            id: btn_axis_y_home
+            text: 'reset'
+            on_release: box_setting.btn_y_reset()
+        Button:
+            id: btn_axis_y_goto
+            text: 'Go to'
+            on_release: box_setting.btn_y_goto()
+
+        # Position control axis z
+        MDLabel:
+            text: 'Z'
+            halign: 'center'
+            font_style: 'H5'
+        TextInput:
+            id: text_axis_z
+            multiline: False
+            halign: 'center'
+        Button:
+            id: btn_axis_z_up
+            text: 'UP'
+            on_release: box_setting.btn_z_up()
+        Button:
+            id: btn_axis_z_down
+            text: 'Down'
+            on_release: box_setting.btn_z_down()
+        Button:
+            id: btn_axis_z_home
+            text: 'reset'
+            on_release: box_setting.btn_z_reset()
+        Button:
+            id: btn_axis_z_goto
+            text: 'Go to'
+            on_release: box_setting.btn_z_goto()
+
+        # Rotation axis y
+        MDLabel:
+            text: 'Rot Y'
+            halign: 'center'
+            font_style: 'H5'
+        TextInput:
+            id: text_rot_y
+            multiline: False
+            halign: 'center'
+            valign: 'middle'
+        Button:
+            id: btn_rot_y_up
+            text: 'UP'
+            on_release: box_setting.rot_y_btn_up()
+        Button:
+            id: btn_rot_y_down
+            text: 'Down'
+            on_release: box_setting.rot_y_btn_down()
+        Button:
+            id: btn_rot_y_home
+            text: 'reset'
+            on_release: box_setting.rot_y_btn_reset()
+        Button:
+            id: btn_rot_y_goto
+            text: 'Go to'
+            on_release: box_setting.rot_y_btn_goto()
+
+        # Rotation axis x
+        MDLabel:
+            text: 'Rot X'
+            halign: 'center'
+            font_style: 'H5'
+        TextInput:
+            id: text_rot_x
+            multiline: False
+            halign: 'center'
+        Button:
+            id: btn_rot_x_up
+            text: 'UP'
+            on_release: box_setting.rot_x_btn_up()
+        Button:
+            id: btn_rot_x_down
+            text: 'Down'
+            on_release: box_setting.rot_x_btn_down()
+        Button:
+            id: btn_rot_x_home
+            text: 'reset'
+            on_release: box_setting.rot_x_btn_reset()
+        Button:
+            id: btn_rot_x_goto
+            text: 'Go to'
+            on_release: box_setting.rot_x_btn_goto()
+
+        # Gripper control
+        MDLabel:
+            text: 'Gripper'
+            halign: 'center'
+            font_style: 'H5'
+        Button:
+            id: btn_on_gripper
+            text: 'On'
+            on_release: box_setting.gripper_pressed()
+        Button:
+            id: btn_home_gripper
+            text: 'Home'
+            on_release: box_setting.gripper_pressed_home()

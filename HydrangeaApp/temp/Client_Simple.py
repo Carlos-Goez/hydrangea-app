@@ -1,9 +1,9 @@
 import socket
 import json
 
-HOST, PORT = "localhost", 8200
+HOST, PORT = "localhost", 8400
 
-m = {"type": "Select", "order": "100001", "number_flower": 1}
+m = {"type": "noir", "order": "100001", "number_flower": 1}
 
 
 data = json.dumps(m)

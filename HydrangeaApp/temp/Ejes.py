@@ -65,9 +65,9 @@ class Pinzas:
 
     def Listen(self):
         while GPIO.input(self.sensor) == 1:
-            print("nada que me llega")
+            print("----Waiting for----")
             time.sleep(1)
-        print("esto es una belleza")
+        print("----Sensor Activado----")
 
 
 class Rotacional():

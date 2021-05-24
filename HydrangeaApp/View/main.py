@@ -1,8 +1,32 @@
 # -*-coding utf-8-*-
 # install_twisted_rector must be called before importing and using the reactor
+import os
 
+from kivy.uix.boxlayout import BoxLayout
+from kivy.properties import ObjectProperty
+from kivymd.app import MDApp
+from kivymd.uix.toolbar import MDToolbar
+from kivy.metrics import dp
+from kivy.uix.anchorlayout import AnchorLayout
+from kivymd.uix.datatables import MDDataTable
+from kivy.uix.gridlayout import GridLayout
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
+from kivy.properties import StringProperty
+from kivy.uix.relativelayout import RelativeLayout
+from kivymd.uix.list import MDList
+from HydrangeaApp.Controllers.Session import Session
+from HydrangeaApp.Controllers.ApplicationController import DataController
+from kivy.uix.screenmanager import ScreenManager
+from kivy.uix.screenmanager import Screen
+from kivymd.uix.bottomnavigation import MDBottomNavigation
+from kivy.clock import Clock
+from HydrangeaApp.temp.captureCamera import CaptureImage
+
+import statistics
+import re
+import json
 import sys
-sys.path.insert(0, '/home/pi/Documents/TG/hydrangea-app/')
 
 from kivy.support import install_twisted_reactor
 
@@ -10,6 +34,8 @@ install_twisted_reactor()
 
 from twisted.internet import reactor
 from twisted.internet import protocol
+
+sys.path.insert(0, '/home/pi/Documents/TG/hydrangea-app/')
 
 
 class EchoServer(protocol.Protocol):
@@ -25,44 +51,16 @@ class EchoServerFactory(protocol.Factory):
     def __init__(self, app):
         self.app = app
 
-from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import ObjectProperty
-from kivymd.app import MDApp
-from kivymd.uix.toolbar import MDToolbar
-from kivy.metrics import dp
-from kivy.uix.anchorlayout import AnchorLayout
-from kivymd.uix.datatables import MDDataTable
-from kivymd.uix.label import MDLabel
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
-from kivy.properties import StringProperty
-from kivy.uix.relativelayout import RelativeLayout
-from kivymd.uix.list import MDList
-from HydrangeaApp.Controllers.Session import Session
-from HydrangeaApp.Controllers.ApplicationController import DataController
-from kivy.uix.screenmanager import ScreenManager
-from kivy.uix.screenmanager import Screen
-from kivymd.uix.bottomnavigation import MDBottomNavigation
-from kivy.clock import Clock
-from kivy.core.clipboard import Clipboard
-from datetime import datetime
-
-import statistics
-import re
-import json
-
-# import _thread
-from HydrangeaApp.temp import Ejes
+import _thread
+# from HydrangeaApp.temp import Ejes
 #
 # traslX = Ejes.Traslacional(4, 10, 16)
 # traslY = Ejes.Traslacional(5, 11, 17)
 # traslZ = Ejes.Elevador(6, 12, 18)
 # rotY = Ejes.RotacionalPlanterios(8, 13)
 # rotX = Ejes.Rotacional(13, 14)
-pinzas = Ejes.Pinzas(11, 15, 19, 20)
+# pinzas = Ejes.Pinzas(11, 15, 19, 20)
+
 
 current_session = Session()
 
@@ -113,10 +111,10 @@ class Home(BoxLayout):
     def turn_on_machine(self, *args):
         if self.ids.button_on.text == 'OFF':
             self.ids.button_on.text = 'ON'
-            pinzas.turn_on_sensor(True)
+            # pinzas.turn_on_sensor(True)
         else:
             self.ids.button_on.text = 'OFF'
-            pinzas.turn_on_sensor(False)
+            # pinzas.turn_on_sensor(False)
 
     def charge_data(self, *args):
         # Loads data into data grip home
@@ -436,189 +434,133 @@ class MyGrid(GridLayout):
     def __init__(self, **kwargs):
         super(MyGrid, self).__init__(**kwargs)
         self.home = 0
-        self.cols = 6
-        self.padding = [dp(15), dp(15)]
-        self.spacing = [dp(10), dp(10)]
 
-        # Position control axis X
-        self.add_widget(MDLabel(text="X", halign="center", font_style='H5'))
-        self.Xtxt = TextInput(multiline=False, halign="center")
-        self.add_widget(self.Xtxt)
-        self.BtnUpX = Button(text="UP")
-        # self.BtnUpX.bind(on_press=self.XBtnUp)
-        self.add_widget(self.BtnUpX)
-        self.BtnDownX = Button(text="DOWN")
-        # self.BtnDownX.bind(on_press=self.XBtnDown)
-        self.add_widget(self.BtnDownX)
-        self.BtnResetX = Button(text="Reset")
-        # self.BtnResetX.bind(on_press=self.XBtnReset)
-        self.add_widget(self.BtnResetX)
-        self.BtnGotoX = Button(text="Go to")
-        # self.BtnGotoX.bind(on_press=self.XBtnGoto)
-        self.add_widget(self.BtnGotoX)
+    def gripper_pressed(self):
+        print('gripper_on')
+        if self.home == 1:
+            if self.parent.ids.btn_on_gripper.text == "ON":
+                # _thread.start_new_thread(pinzas.POpen,())
+                self.parent.ids.btn_on_gripper.text = "OFF"
+            else:
+                # _thread.start_new_thread(pinzas.PStop,())
+                self.parent.ids.btn_on_gripper.text = "ON"
+        else:
+            print ("Home primero")
 
-        self.add_widget(MDLabel(text="Y", halign="center", font_style='H5'))
-        self.Ytxt = TextInput(multiline=False, halign="center")
-        self.add_widget(self.Ytxt)
-        self.BtnUpY = Button(text="UP")
-        # self.BtnUpY.bind(on_press=self.YBtnUp)
-        self.add_widget(self.BtnUpY)
-        self.BtnDownY = Button(text="DOWN")
-        # self.BtnDownY.bind(on_press=self.YBtnDown)
-        self.add_widget(self.BtnDownY)
-        self.BtnResetY = Button(text="Reset")
-        # self.BtnResetY.bind(on_press=self.YBtnReset)
-        self.add_widget(self.BtnResetY)
-        self.BtnGotoY = Button(text="Go to")
-        # self.BtnGotoY.bind(on_press=self.YBtnGoto)
-        self.add_widget(self.BtnGotoY)
+    def gripper_pressed_home(self):
+        print('gripper_home')
+        # pinzas.PHome()
+        self.home = 1
 
-        self.add_widget(MDLabel(text="Z", halign="center", font_style='H5'))
-        self.Ztxt = TextInput(multiline=False, halign="center")
-        self.add_widget(self.Ztxt)
-        self.BtnUpZ = Button(text="UP")
-        # self.BtnUpZ.bind(on_press=self.ZBtnUp)
-        self.add_widget(self.BtnUpZ)
-        self.BtnDownZ = Button(text="DOWN")
-        # self.BtnDownZ.bind(on_press=self.ZBtnDown)
-        self.add_widget(self.BtnDownZ)
-        self.BtnResetZ = Button(text="Reset")
-        # self.BtnResetZ.bind(on_press=self.ZBtnReset)
-        self.add_widget(self.BtnResetZ)
-        self.BtnGotoZ = Button(text="Go to")
-        # self.BtnGotoZ.bind(on_press=self.ZBtnGoto)
-        self.add_widget(self.BtnGotoZ)
+    def rot_x_btn_up(self):
+        print('rot_x_up')
+        # rotX.ManualUp()
+        # self.parent.ids.text_rot_x.text = str(rotX.grados)
 
-        self.add_widget(MDLabel(text="RotY", halign="center", font_style='H5'))
-        self.RotYtxt = TextInput(multiline=False, halign="center")
-        self.add_widget(self.RotYtxt)
-        self.BtnUpRotY = Button(text="UP")
-        # self.BtnUpRotY.bind(on_press=self.RotYBtnUp)
-        self.add_widget(self.BtnUpRotY)
-        self.BtnDownRotY = Button(text="DOWN")
-        # self.BtnDownRotY.bind(on_press=self.RotYBtnDown)
-        self.add_widget(self.BtnDownRotY)
-        self.BtnResetRotY = Button(text="Reset")
-        # self.BtnResetRotY.bind(on_press=self.RotYBtnReset)
-        self.add_widget(self.BtnResetRotY)
-        self.BtnGotoRotY = Button(text="Go to")
-        # self.BtnGotoRotY.bind(on_press=self.RotYBtnGoto)
-        self.add_widget(self.BtnGotoRotY)
+    def rot_x_btn_down(self):
+        print('rot_x_down')
+        # rotX.ManualDown()
+        # self.parent.ids.text_rot_x.text = str(rotX.grados)
 
-        self.add_widget(MDLabel(text="RotX", halign="center", font_style='H5'))
-        self.RotXtxt = TextInput(multiline=False, halign="center")
-        self.add_widget(self.RotXtxt)
-        self.BtnUpRotX = Button(text="UP")
-        # self.BtnUpRotX.bind(on_press=self.RotXBtnUp)
-        self.add_widget(self.BtnUpRotX)
-        self.BtnDownRotX = Button(text="DOWN")
-        # self.BtnDownRotX.bind(on_press=self.RotXBtnDown)
-        self.add_widget(self.BtnDownRotX)
-        self.BtnResetRotX = Button(text="Reset")
-        # self.BtnResetRotX.bind(on_press=self.RotXBtnReset)
-        self.add_widget(self.BtnResetRotX)
-        self.BtnGotoRotX = Button(text="Go to")
-        # self.BtnGotoRotX.bind(on_press=self.RotXBtnGoto)
-        self.add_widget(self.BtnGotoRotX)
+    def rot_x_btn_goto(self):
+        print('rot_x_goto')
+        # rotX.ManualDown()
+        # GoRotX=int(self.parent.ids.text_rot_x.text)
+        # rotX.GotoGrados(GoRotX,80)
+        # self.parent.ids.text_rot_x.text = str(rotX.grados)
 
-        self.add_widget(
-            MDLabel(text="Pinzas", halign="center", font_style='H5'))
-        self.Gripper = Button(text="ON")
-        # self.Gripper.bind(on_press=self.GripperPressed)
-        self.add_widget(self.Gripper)
-        self.GripperHome = Button(text="Home")
-        # self.GripperHome.bind(on_press=self.GripperPressedHome)
-        self.add_widget(self.GripperHome)
+    def rot_x_btn_reset(self):
+        print('rot_x_reset')
+        # rotX.ResetHome()
+        # self.parent.ids.text_rot_x.text = str(rotX.grados)
+
+    def rot_y_btn_up(self):
+        print('rot_y_up')
+        # rotY.ManualUp()
+        # self.parent.ids.text_rot_y.text = str(rotY.grados)
+
+    def rot_y_btn_down(self):
+        print('rot_y_down')
+        # rotY.ManualDown()
+        # self.parent.ids.text_rot_y.text = str(rotY.grados)
+
+    def rot_y_btn_goto(self):
+        print('rot_y_goto')
+        # GoRotY=int(self.parent.ids.text_rot_y.text)
+        # rotY.GotoGrados(GoRotY,80)
+        # self.parent.ids.text_rot_y.text) = str(rotY.grados)
+
+    def rot_y_btn_reset(self):
+        print('rot y reset')
+        # rotY.ResetHome()
+        # self.parent.ids.text_rot_y.text = str(rotY.grados)
+
+    def btn_x_up(self):
+        print('x up')
+        # traslX.ManualUp()
+        # self.parent.ids.text_axis_x.text = str(traslX.distancia)
+
+    def btn_x_down(self):
+        print('x down')
+        # traslX.ManualDown()
+        # self.parent.ids.text_axis_x.text = str(traslX.distancia)
+
+    def btn_x_goto(self):
+        print('x goto')
+        # GoX=int(self.parent.ids.text_axis_x.text)
+        # traslX.GotoDistancia(GoX,300)
+        # self.parent.ids.text_axis_x.text = str(traslX.distancia)
+
+    def btn_x_reset(self):
+        print('x reset')
+        # traslX.ResetHome()
+        # self.parent.ids.text_axis_x.text = str(traslX.distancia)
+
+    def btn_y_up(self):
+        print('y up')
+        # traslY.ManualUp()
+        # self.parent.ids.text_axis_y.text = str(traslY.distancia)
+
+    def btn_y_down(self):
+        print('y down')
+        # traslY.ManualDown()
+        # self.parent.ids.text_axis_y.text = str(traslY.distancia)
+
+    def btn_y_goto(self):
+        print('y goto')
+        # GoY=int(self.parent.ids.text_axis_y.text)
+        # traslY.GotoDistancia(GoY,300)
+        # self.parent.ids.text_axis_y.text = str(traslY.distancia)
+
+    def btn_y_reset(self):
+        print('y reset')
+        # traslY.ResetHome()
+        # self.parent.ids.text_axis_y.text = str(traslY.distancia)
+
+    def btn_z_up(self):
+        print('z up')
+        # traslZ.ManualUp()
+        # self.parent.ids.text_axis_z.text = str(traslZ.distancia)
+
+    def btn_z_down(self):
+        print('z down')
+        # traslZ.ManualDown()
+        # self.parent.ids.text_axis_z.text = str(traslZ.distancia)
+
+    def btn_z_goto(self):
+        print('z goto')
+        # GoZ=int(self.parent.ids.text_axis_z.text)
+        # traslZ.GotoDistancia(GoZ,1000)
+        # self.parent.ids.text_axis_z.text = str(traslZ.distancia)
+
+    def btn_z_reset(self):
+        print('z reset')
+        # traslZ.ResetHome()
+        # self.parent.ids.text_axis_z.text = str(traslZ.distancia)
 
 
 class DataOrderActiveTitle(BoxLayout):
     pass
-
-
-""" def GripperPressed(self, instance): if self.home == 1:
-            if self.Gripper.text == "ON":
-                _thread.start_new_thread(pinzas.POpen,())
-                self.Gripper.text = "OFF"
-            else:
-                _thread.start_new_thread(pinzas.PStop,())
-                self.Gripper.text = "ON"
-        else:
-            print ("Home primero")
-
-    def GripperPressedHome(self, instance):
-        pinzas.PHome()
-        self.home = 1
-
-    def RotXBtnUp(self, instance):
-        rotX.ManualUp()
-        self.RotXtxt.text = str(rotX.grados)
-    def RotXBtnDown(self, instance):
-        rotX.ManualDown()
-        self.RotXtxt.text = str(rotX.grados)
-    def RotXBtnGoto(self, instance):
-        GoRotX=int(self.RotXtxt.text)
-        rotX.GotoGrados(GoRotX,80)
-        self.RotXtxt.text = str(rotX.grados)
-    def RotXBtnReset(self, instance):
-        rotX.ResetHome()
-        self.RotXtxt.text = str(rotX.grados)
-
-    def RotYBtnUp(self, instance):
-        rotY.ManualUp()
-        self.RotYtxt.text = str(rotY.grados)
-    def RotYBtnDown(self, instance):
-        rotY.ManualDown()
-        self.RotYtxt.text = str(rotY.grados)
-    def RotYBtnGoto(self, instance):
-        GoRotY=int(self.RotYtxt.text)
-        rotY.GotoGrados(GoRotY,80)
-        self.RotYtxt.text = str(rotY.grados)
-    def RotYBtnReset(self, instance):
-        rotY.ResetHome()
-        self.RotYtxt.text = str(rotY.grados)
-
-    def XBtnUp(self, instance):
-        traslX.ManualUp()
-        self.Xtxt.text = str(traslX.distancia)
-    def XBtnDown(self, instance):
-        traslX.ManualDown()
-        self.Xtxt.text = str(traslX.distancia)
-    def XBtnGoto(self, instance):
-        GoX=int(self.Xtxt.text)
-        traslX.GotoDistancia(GoX,300)
-        self.Xtxt.text = str(traslX.distancia)
-    def XBtnReset(self, instance):
-        traslX.ResetHome()
-        self.Xtxt.text = str(traslX.distancia)
-
-    def YBtnUp(self, instance):
-        traslY.ManualUp()
-        self.Ytxt.text = str(traslY.distancia)
-    def YBtnDown(self, instance):
-        traslY.ManualDown()
-        self.Ytxt.text = str(traslY.distancia)
-    def YBtnGoto(self, instance):
-        GoY=int(self.Ytxt.text)
-        traslY.GotoDistancia(GoY,300)
-        self.Ytxt.text = str(traslY.distancia)
-    def YBtnReset(self, instance):
-        traslY.ResetHome()
-        self.Ytxt.text = str(traslY.distancia)
-
-    def ZBtnUp(self, instance):
-        traslZ.ManualUp()
-        self.Ztxt.text = str(traslZ.distancia)
-    def ZBtnDown(self, instance):
-        traslZ.ManualDown()
-        self.Ztxt.text = str(traslZ.distancia)
-    def ZBtnGoto(self, instance):
-        GoZ=int(self.Ztxt.text)
-        traslZ.GotoDistancia(GoZ,1000)
-        self.Ztxt.text = str(traslZ.distancia)
-    def ZBtnReset(self, instance):
-        traslZ.ResetHome()
-        self.Ztxt.text = str(traslZ.distancia)
-"""
 
 
 class MainApp(MDApp):
@@ -671,7 +613,16 @@ class MainApp(MDApp):
             self.root.ids.home.ids.label_quantity_blue.text = str(data_flower[2])
 
         if msg == 'Start':
-            self.root.ids.home.ids.flower_image.source = '/home/agoez/Pictures/anki2.jpg'
+            order = self.root.ids.home.ids.data_order_ongoing.ids.order_id.text
+            select = int(self.root.ids.home.ids.data_order_ongoing.ids.select.text)
+            mini = int(self.root.ids.home.ids.data_order_ongoing.ids.mini.text)
+            blue = int(self.root.ids.home.ids.data_order_ongoing.ids.blue.text)
+            total = select + mini + blue
+            folder_images = '/home/agoez/Pictures/'
+            path_image = folder_images + order + '-' + 'rgb' + str(total)
+            # CaptureImage.main(path_image)
+            self.root.ids.home.ids.flower_image.source = path_image
+
             print('On')
         print("responded: {}\n".format(msg))
         return msg.encode('utf-8')
