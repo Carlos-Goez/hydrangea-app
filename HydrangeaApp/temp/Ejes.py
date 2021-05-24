@@ -6,6 +6,7 @@ from math import pi0
 import RPi.GPIO as GPIO
 from math import pi
 import time
+from HydrangeaApp.Services.LocalServicesMachine import LocalService
 
 
 i2c_bus = busio.I2C(SCL, SDA)
@@ -67,6 +68,7 @@ class Pinzas:
         while GPIO.input(self.sensor) == 1:
             print("----Waiting for----")
             time.sleep(1)
+        LocalService.send_start_signal()
         print("----Sensor Activado----")
 
 
