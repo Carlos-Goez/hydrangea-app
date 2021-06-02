@@ -30,14 +30,14 @@ if __name__ == '__main__':
 
     # Find the width and height of the color image
     sz = im.shape
-    print sz
+    print(sz)
     height = int(sz[0] / 3);
     width = sz[1]
 
     # Extract the three channels from the gray scale image
     # and merge the three channels into one color image
     im_color = np.zeros((height,width,3), dtype=np.uint8 )
-    for i in xrange(0,3) :
+    for i in range(0,3) :
         im_color[:,:,i] = im[ i * height:(i+1) * height,:]
 
     # Allocate space for aligned image
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     criteria = (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 5000,  1e-10)
 
     # Warp the blue and green channels to the red channel
-    for i in xrange(0,2) :
+    for i in range(0,2) :
         (cc, warp_matrix) = cv2.findTransformECC (get_gradient(im_color[:,:,2]), get_gradient(im_color[:,:,i]),warp_matrix, warp_mode, criteria)
     
         if warp_mode == cv2.MOTION_HOMOGRAPHY :
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         else :
             # Use Affine warp when the transformation is not a Homography
             im_aligned[:,:,i] = cv2.warpAffine(im_color[:,:,i], warp_matrix, (width, height), flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP);
-        print warp_matrix
+        print(warp_matrix)
 
     # Show final output
     cv2.imshow("Color Image", im_color)

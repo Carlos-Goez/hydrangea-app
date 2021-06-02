@@ -6,6 +6,7 @@ import asyncio
 from HydrangeaApp.temp.captureCamera import CaptureImage
 from VisionApp.ValidationOptimized import ClusterFlower
 from HydrangeaApp.Services.ClientIA import ServicesData
+from HydrangeaApp.temp.image_alignment_simple import AlignImage
 
 # Create a TCP/IP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -34,6 +35,10 @@ async def execute_classification(path_rgb, path_noir, order, number_flower):
 
 def send_data_classification(type_flower, path_rgb, path_noir, order, number_flower):
     ServicesData.send_flower_data(type_flower, order, number_flower, path_rgb, path_noir)
+
+
+def send_data_align(path_rgb, path_noir, order, number_flower):
+    AlignImage.align(path_rgb, path_noir)
 
 
 while True:
@@ -82,4 +87,5 @@ while True:
                                                path_image_noir,
                                                data_recv['order'],
                                                str(data_recv['number_flower'])))
+
         print(msg)

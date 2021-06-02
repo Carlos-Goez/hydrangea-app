@@ -254,12 +254,12 @@ class Stats(BoxLayout):
 
     def calculate_begging_stats(self):
         data_stats = DataController.calculate_stats()
-        self.ids.global_flower_quantity.text = str(data_stats[0]["Total_Flower"])
-        self.ids.stats_quantity_select.text = str(data_stats[0]["Total_Select"])
-        self.ids.stats_quantity_mini.text = str(data_stats[0]["Total_Mini"])
-        self.ids.stats_quantity_blue.text = str(data_stats[0]["Total_Blue"])
-        self.ids.performance.text = str(float("{:.2f}".format(data_stats[0]["Performance"]))) + 'flores / min'
-        self.ids.global_order_quantity.text = str(data_stats[0]["Total_Order"])
+        # self.ids.global_flower_quantity.text = str(data_stats[0]["Total_Flower"])
+        # self.ids.stats_quantity_select.text = str(data_stats[0]["Total_Select"])
+        # self.ids.stats_quantity_mini.text = str(data_stats[0]["Total_Mini"])
+        # self.ids.stats_quantity_blue.text = str(data_stats[0]["Total_Blue"])
+        # self.ids.performance.text = str(float("{:.2f}".format(data_stats[0]["Performance"]))) + 'flores / min'
+        # self.ids.global_order_quantity.text = str(data_stats[0]["Total_Order"])
         if data_stats[0]["Noir"] is not None:
             self.ids.average_ndvi.text = str(float("{:.2f}".format(data_stats[0]["Noir"])))
             self.ids.average_gci.text = str(float("{:.2f}".format(data_stats[0]["Gci"])))
@@ -622,7 +622,8 @@ class MainApp(MDApp):
             path_image = folder_images + order + '-' + 'rgb' + str(total)
             # CaptureImage.main(path_image)
             self.root.ids.home.ids.flower_image.source = path_image
-
+        if msg == 'noir':
+            print('NOIR')
             print('On')
         print("responded: {}\n".format(msg))
         return msg.encode('utf-8')

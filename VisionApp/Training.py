@@ -13,7 +13,7 @@ data_training = './data/Training/'
 data_validation = './data/Validation'
 
 numbers_epoch = 20
-height, length = 200, 200
+height, length = 224, 224
 batch_size = 15
 steps = 15
 steps_validation = 40
